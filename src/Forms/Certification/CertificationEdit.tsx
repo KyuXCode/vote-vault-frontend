@@ -1,5 +1,5 @@
 import {FC, useEffect, useState} from 'react';
-// import '../Certification/certificationEditStyles.scss'
+import '../Certification/certificationEditStyles.scss'
 import {useNavigate, useParams} from 'react-router-dom';
 import {
     Certification,
