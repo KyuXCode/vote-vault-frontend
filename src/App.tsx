@@ -13,6 +13,8 @@ import ContractForm from "./Forms/Contract/ContractForm/ContractForm.tsx";
 import DisplayContracts from "./Forms/Contract/DisplayContracts/DisplayContracts.tsx";
 import ExpenseForm from "./Forms/Expense/ExpenseForm/ExpenseForm.tsx";
 import DisplayExpenses from "./Forms/Expense/DisplayExpenses/DisplayExpenses.tsx";
+import InventoryForm from "./Forms/Inventory/InventoryForm/InventoryForm.tsx";
+import DisplayInventories from "./Forms/Inventory/DisplayInventories/DisplayInventories.tsx";
 
 function App() {
   return (
@@ -43,6 +45,10 @@ function App() {
                 <Route path="/expenses" element={<DisplayExpenses/>} />
                 <Route path="/expenses/create" element={<ExpenseForm/>} />
                 <Route path="/expenses/edit/:id" element={<ExpenseForm/>} />
+
+                <Route path="/inventory_units" element={<DisplayInventories/>} />
+                <Route path="/inventory_units/create" element={<InventoryForm/>} />
+                <Route path="/inventory_units/edit/:id" element={<InventoryForm/>} />
             </Routes>
         </Router>
     </>
