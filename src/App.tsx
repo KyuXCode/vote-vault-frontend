@@ -9,6 +9,8 @@ import ComponentForm from "./Forms/Component/ComponentForm/ComponentForm.tsx";
 import DisplayComponents from "./Forms/Component/DisplayComponents/DisplayComponents.tsx";
 import CountyForm from "./Forms/County/CountyForm/CountyForm.tsx";
 import DisplayCounties from "./Forms/County/DisplayCounties/DisplayCounties.tsx";
+import ContractForm from "./Forms/Contract/ContractForm/ContractForm.tsx";
+import DisplayContracts from "./Forms/Contract/DisplayContracts/DisplayContracts.tsx";
 
 function App() {
   return (
@@ -31,6 +33,10 @@ function App() {
                 <Route path="/counties" element={<DisplayCounties/>} />
                 <Route path="/counties/create" element={<CountyForm/>} />
                 <Route path="/counties/edit/:id" element={<CountyForm/>} />
+
+                <Route path="/contracts" element={<DisplayContracts/>} />
+                <Route path="/contracts/create" element={<ContractForm/>} />
+                <Route path="/contracts/edit/:id" element={<ContractForm/>} />
             </Routes>
         </Router>
     </>
