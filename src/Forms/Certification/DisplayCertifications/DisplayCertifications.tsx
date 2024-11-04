@@ -1,8 +1,8 @@
 import {FC, useEffect, useState} from 'react';
 import './displayCertificationStyles.scss'
 import {useNavigate} from "react-router-dom";
-import {Certification} from "../../Types/Certification.ts";
-import {deleteCertification, getCertifications} from "../../utilities/api/certificationApi.ts";
+import {Certification} from "../../../Types/Certification.ts";
+import {deleteCertification, getCertifications} from "../../../utilities/api/certificationApi.ts";
 
 const DisplayCertifications: FC = () => {
     const [certifications, setCertifications] = useState<Certification[]>([]);

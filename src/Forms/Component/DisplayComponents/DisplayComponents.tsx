@@ -1,9 +1,9 @@
 import {FC, useEffect, useState} from 'react';
 import './displayComponentsStyles.scss'
 import {useNavigate} from "react-router-dom";
-import {Component} from "../../Types/Component.ts";
-import {getComponents} from "../../utilities/api/componentApi.ts";
-import {deleteComponent} from "../../utilities/api/componentApi.ts";
+import {Component} from "../../../Types/Component.ts";
+import {getComponents} from "../../../utilities/api/componentApi.ts";
+import {deleteComponent} from "../../../utilities/api/componentApi.ts";
 
 const DisplayComponents: FC = () => {
     const [components, setComponents] = useState<Component[]>([]);

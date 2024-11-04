@@ -1,30 +1,35 @@
-import {FC, useEffect, useState} from 'react';
-import './componentEditStyles.scss'
-import {useNavigate, useParams} from 'react-router-dom';
-import {Component, ComponentType} from "../../Types/Component.ts";
-import {getComponentById, updateComponent} from "../../utilities/api/componentApi.ts";
+import { FC, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ComponentType, Component } from "../../../Types/Component.ts";
+import { createComponent, updateComponent, getComponentById } from "../../../utilities/api/componentApi.ts";
+import './componentFormStyles.scss';
 
-const CertificationEdit: FC = () => {
-    const {id} = useParams<{ id: string }>();
-    const navigate = useNavigate()
+const ComponentForm: FC = () => {
     const [formData, setFormData] = useState<Component>({
         name: '',
         description: '',
-        type: ComponentType.Other,
+        type: ComponentType.DRE,
         certification_id: 0,
     });
+    const { id } = useParams<{ id?: string }>();
+    const navigate = useNavigate();
+    const isEditMode = Boolean(id);
 
     useEffect(() => {
-        getComponentById(id ?? "0").then((result) => {
-            if (result.success && result.data) {
-                setFormData(result.data);
-            }
-        })
-    }, []);
+        if (isEditMode && id) {
+            const fetchComponent = async () => {
+                const result = await getComponentById(id);
+                if (result.success && result.data) {
+                    setFormData(result.data);
+                }
+            };
+            fetchComponent();
+        }
+    }, [isEditMode, id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const {name, value} = e.target;
-        setFormData(prevData => ({
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
@@ -32,8 +37,12 @@ const CertificationEdit: FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await updateComponent((formData.id ?? 0).toString(), formData);
-        navigate('/components')
+        if (isEditMode && id) {
+            await updateComponent(id, formData);
+        } else {
+            await createComponent(formData);
+        }
+        navigate('/components');
     };
 
     return (
@@ -81,15 +90,15 @@ const CertificationEdit: FC = () => {
                 <input
                     type="number"
                     name="certificationId"
-                    value={Number(formData.certification_id)}
+                    value={formData.certification_id}
                     onChange={handleChange}
                     required
                 />
             </label>
 
-            <button type="submit">Update Component</button>
+            <button type="submit">{isEditMode ? 'Update' : 'Create'} Component</button>
         </form>
     );
 };
 
-export default CertificationEdit;
+export default ComponentForm;
