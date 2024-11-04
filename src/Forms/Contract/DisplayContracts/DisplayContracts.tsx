@@ -63,9 +63,7 @@ const DisplayContracts: FC = () => {
                     <p>{contract.type}</p>
                     <p>{contract.certification_id}</p>
                 </div>
-            ))
-
-            }
+            ))}
         </div>
     );
 };
