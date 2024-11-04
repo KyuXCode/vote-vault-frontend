@@ -14,7 +14,7 @@ const Home: FC = () => {
             <button onClick={() => navigate("/contracts")}>Contracts</button>
             <button onClick={() => navigate("/expenses")}>Expenses</button>
             <button onClick={() => navigate("/inventory_units")}>Inventory Units</button>
-            {/*<button onClick={() => navigate("/dispositions")}>Dispositions</button>*/}
+            <button onClick={() => navigate("/dispositions")}>Dispositions</button>
             {/*<button onClick={() => navigate("/storage_locations")}>Storage Locations</button>*/}
         </div>
     );
