@@ -131,7 +131,7 @@ const InventoryForm: FC = () => {
                 />
             </label>
 
-            <button type="submit">{isEditMode ? 'Update' : 'Create'} Certification</button>
+            <button type="submit">{isEditMode ? 'Update' : 'Create'} Inventory</button>
         </form>
     );
 };
