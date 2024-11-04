@@ -1,0 +1,54 @@
+.display-expenses-container {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 1rem;
+
+  .create-button {
+    background: #ffffff;
+    color: #000000;
+    margin-bottom: 2rem;
+  }
+}
+
+.data-row {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+
+  p {
+    flex: 1;
+    margin: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .actions {
+    display: flex;
+    gap: 0.5rem;
+
+    .edit-button, .delete-button, .create-button {
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      border-radius: 4px;
+      border: none;
+      color: #fff;
+    }
+
+    .edit-button {
+      background-color: #4CAF50;
+    }
+
+    .delete-button {
+      background-color: #f44336;
+    }
+  }
+}
+
+.header-row {
+  font-weight: bold;
+  background-color: #f4f4f4;
+  color: #000000;
+}

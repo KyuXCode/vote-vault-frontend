@@ -11,6 +11,8 @@ import CountyForm from "./Forms/County/CountyForm/CountyForm.tsx";
 import DisplayCounties from "./Forms/County/DisplayCounties/DisplayCounties.tsx";
 import ContractForm from "./Forms/Contract/ContractForm/ContractForm.tsx";
 import DisplayContracts from "./Forms/Contract/DisplayContracts/DisplayContracts.tsx";
+import ExpenseForm from "./Forms/Expense/ExpenseForm/ExpenseForm.tsx";
+import DisplayExpenses from "./Forms/Expense/DisplayExpenses/DisplayExpenses.tsx";
 
 function App() {
   return (
@@ -37,6 +39,10 @@ function App() {
                 <Route path="/contracts" element={<DisplayContracts/>} />
                 <Route path="/contracts/create" element={<ContractForm/>} />
                 <Route path="/contracts/edit/:id" element={<ContractForm/>} />
+
+                <Route path="/expenses" element={<DisplayExpenses/>} />
+                <Route path="/expenses/create" element={<ExpenseForm/>} />
+                <Route path="/expenses/edit/:id" element={<ExpenseForm/>} />
             </Routes>
         </Router>
     </>
