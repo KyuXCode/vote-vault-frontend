@@ -11,6 +11,7 @@ const Home: FC = () => {
             <button onClick={() => navigate("/certifications")}>Certification</button>
             <button onClick={() => navigate("/components")}>Components</button>
             <button onClick={() => navigate("/counties")}>Counties</button>
+            <button onClick={() => navigate("/contracts")}>Contracts</button>
         </div>
     );
 };
