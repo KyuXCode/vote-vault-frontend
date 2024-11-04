@@ -1,0 +1,17 @@
+.inventory-form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem 2rem;
+
+  label {
+    justify-self: start;
+  }
+
+  label > * {
+    width: auto;
+    height: 2rem;
+    padding: 0 0.5rem;
+    margin: 0 0.5rem;
+  }
+}
