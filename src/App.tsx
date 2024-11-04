@@ -7,6 +7,8 @@ import DisplayCertifications from "./Forms/Certification/DisplayCertifications/D
 import CertificationForm from "./Forms/Certification/CertificationForm/CertificationForm.tsx";
 import ComponentForm from "./Forms/Component/ComponentForm/ComponentForm.tsx";
 import DisplayComponents from "./Forms/Component/DisplayComponents/DisplayComponents.tsx";
+import CountyForm from "./Forms/County/CountyForm/CountyForm.tsx";
+import DisplayCounties from "./Forms/County/DisplayCounties/DisplayCounties.tsx";
 
 function App() {
   return (
@@ -17,12 +19,18 @@ function App() {
                 <Route path="/vendors" element={<DisplayVendors/>} />
                 <Route path="/vendors/create" element={<VendorForm/>} />
                 <Route path="/vendors/edit/:id" element={<VendorForm/>} />
+
                 <Route path="/certifications" element={<DisplayCertifications/>} />
                 <Route path="/certifications/create" element={<CertificationForm/>} />
                 <Route path="/certifications/edit/:id" element={<CertificationForm/>} />
+
                 <Route path="/components" element={<DisplayComponents/>} />
                 <Route path="/components/create" element={<ComponentForm/>} />
                 <Route path="/components/edit/:id" element={<ComponentForm/>} />
+
+                <Route path="/counties" element={<DisplayCounties/>} />
+                <Route path="/counties/create" element={<CountyForm/>} />
+                <Route path="/counties/edit/:id" element={<CountyForm/>} />
             </Routes>
         </Router>
     </>
