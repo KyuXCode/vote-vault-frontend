@@ -17,6 +17,8 @@ import InventoryForm from "./Forms/Inventory/InventoryForm/InventoryForm.tsx";
 import DisplayInventories from "./Forms/Inventory/DisplayInventories/DisplayInventories.tsx";
 import DispositionForm from "./Forms/Disposition/DispositionForm/DispositionForm.tsx";
 import DisplayDispositions from "./Forms/Disposition/DisplayDispositions/DisplayDispositions.tsx";
+import DisplayStorageLocations from "./Forms/StorageLocation/DisplayStorageLocations/DisplayStorageLocations.tsx";
+import StorageLocationForm from "./Forms/StorageLocation/StorageLocationForm/StorageLocationForm.tsx";
 
 function App() {
   return (
@@ -55,6 +57,10 @@ function App() {
                 <Route path="/dispositions" element={<DisplayDispositions/>} />
                 <Route path="/dispositions/create" element={<DispositionForm/>} />
                 <Route path="/dispositions/edit/:id" element={<DispositionForm/>} />
+
+                <Route path="/storage_locations" element={<DisplayStorageLocations/>} />
+                <Route path="/storage_locations/create" element={<StorageLocationForm/>} />
+                <Route path="/storage_locations/edit/:id" element={<StorageLocationForm/>} />
             </Routes>
         </Router>
     </>
