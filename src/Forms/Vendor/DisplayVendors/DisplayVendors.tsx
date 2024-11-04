@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Vendor } from "../../Types/Vendor";
-import {deleteVendor, getVendors} from "../../utilities/api/vendorApi.ts";
+import { Vendor } from "../../../Types/Vendor.ts";
+import {deleteVendor, getVendors} from "../../../utilities/api/vendorApi.ts";
 import './displayVendorsStyles.scss';
 
 const DisplayVendors: FC = () => {
