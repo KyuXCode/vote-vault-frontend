@@ -19,6 +19,7 @@ import DispositionForm from "./Forms/Disposition/DispositionForm/DispositionForm
 import DisplayDispositions from "./Forms/Disposition/DisplayDispositions/DisplayDispositions.tsx";
 import DisplayStorageLocations from "./Forms/StorageLocation/DisplayStorageLocations/DisplayStorageLocations.tsx";
 import StorageLocationForm from "./Forms/StorageLocation/StorageLocationForm/StorageLocationForm.tsx";
+import Dashboard from "./Dashboard/Dashboard.tsx";
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/" element={<Home/>} />
+                <Route path='/dashboard' element={<Dashboard/>} />
+
                 <Route path="/vendors" element={<DisplayVendors/>} />
                 <Route path="/vendors/create" element={<VendorForm/>} />
                 <Route path="/vendors/edit/:id" element={<VendorForm/>} />

@@ -1,0 +1,20 @@
+.widget-container {
+  width: 80vw;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.entity-count-widget{
+  width: 13rem;
+  height: 15rem;
+  background: white;
+  color: #000000;
+  padding: 2rem;
+  border-radius: 15px;
+
+  -webkit-box-shadow: 11px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 11px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 11px 10px 5px 0px rgba(0,0,0,0.75);
+}

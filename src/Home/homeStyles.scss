@@ -1,6 +1,12 @@
-.home-container {
+.options-container {
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 1rem;
+}
+
+
+.dashboard {
+  width: 40rem;
+  margin: 2rem 0;
 }
