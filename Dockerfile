@@ -16,14 +16,9 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Build the Vite project
-RUN npm run build
-
-# Install serve to serve static files
-RUN npm install -g serve
-
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Serve the built files
-CMD ["serve", "-s", "dist"]
+RUN npm run build
+
+CMD ["npm", "run", "dev"]
