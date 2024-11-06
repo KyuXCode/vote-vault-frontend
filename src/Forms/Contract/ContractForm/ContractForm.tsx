@@ -3,8 +3,12 @@ import './contractFormStyles.scss';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Contract, ContractType} from "../../../Types/Contract.ts";
 import {createContract, getContractById, updateContract} from "../../../utilities/api/contractApi.ts";
+import {Certification} from "../../../Types/Certification.ts";
+import {getCertifications} from "../../../utilities/api/certificationApi.ts";
 
 const ContractForm: FC = () => {
+    const [certifications, setCertifications] = useState<Certification[]>([])
+
     const [formData, setFormData] = useState<Contract>({
             begin_date: '',
             end_date: '',
@@ -27,6 +31,11 @@ const ContractForm: FC = () => {
             };
             fetchContract();
         }
+        getCertifications().then((result) => {
+            if (result.success && result.data) {
+                setCertifications(result.data);
+            }
+        });
     }, [isEditMode, id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -94,14 +103,20 @@ const ContractForm: FC = () => {
                 </label>
 
                 <label>
-                    Certification ID:
-                    <input
-                        type="number"
+                    Certification:
+                    <select
                         name="certification_id"
                         value={formData.certification_id}
                         onChange={handleChange}
                         required
-                    />
+                    >
+                        <option value="">Select a Certification</option>
+                        {certifications.map((certification) => (
+                            <option key={certification.id} value={certification.id}>
+                                {certification.model_number}
+                            </option>
+                        ))}
+                    </select>
                 </label>
 
                 <button type="submit">{formData.id ? 'Update' : 'Create'} Contract</button>

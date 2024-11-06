@@ -6,11 +6,19 @@ import {
     SystemBase,
     SystemType
 } from "../../../Types/Certification.ts";
-import { createCertification, updateCertification, getCertificationById } from "../../../utilities/api/certificationApi.ts";
+import {
+    createCertification,
+    updateCertification,
+    getCertificationById
+} from "../../../utilities/api/certificationApi.ts";
 import './certificationFormStyles.scss';
 import { useNavigate, useParams } from "react-router-dom";
+import {getVendors} from "../../../utilities/api/vendorApi.ts";
+import {Vendor} from "../../../Types/Vendor.ts";
 
 const CertificationForm: FC = () => {
+    const [vendors, setVendors] = useState<Vendor[]>([])
+
     const [formData, setFormData] = useState<Certification>({
         model_number: "",
         description: "",
@@ -40,6 +48,13 @@ const CertificationForm: FC = () => {
             };
             fetchCertification();
         }
+
+        getVendors().then((result) => {
+            if (result.success && result.data) {
+                setVendors(result.data);
+            }
+        });
+
     }, [isEditMode, id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -207,14 +222,20 @@ const CertificationForm: FC = () => {
                 </label>
 
                 <label>
-                    Vendor ID:
-                    <input
-                        type="number"
+                    Vendor:
+                    <select
                         name="vendor_id"
                         value={formData.vendor_id}
                         onChange={handleChange}
                         required
-                    />
+                    >
+                        <option value="">Select a Vendor</option>
+                        {vendors.map((vendor) => (
+                            <option key={vendor.id} value={vendor.id}>
+                                {vendor.name}
+                            </option>
+                        ))}
+                    </select>
                 </label>
 
                 <button type="submit">{isEditMode ? 'Update' : 'Create'} Certification</button>

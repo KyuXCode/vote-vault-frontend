@@ -3,8 +3,15 @@ import './expenseFormStyles.scss'
 import {useNavigate, useParams} from "react-router-dom";
 import {Expense} from "../../../Types/Expense.ts";
 import {createExpense, getExpenseById, updateExpense} from "../../../utilities/api/expenseApi.ts";
+import {County} from "../../../Types/County.ts";
+import {getCounties} from "../../../utilities/api/countyApi.ts";
+import {Contract} from "../../../Types/Contract.ts";
+import {getContracts} from "../../../utilities/api/contractApi.ts";
 
 const ExpenseForm: FC = () => {
+    const [contracts, setContracts] = useState<Contract[]>([])
+    const [counties, setCounties] = useState<County[]>([])
+
     const [formData, setFormData] = useState<Expense>({
             name: "",
             amount: 0,
@@ -29,6 +36,18 @@ const ExpenseForm: FC = () => {
             };
             fetchExpense();
         }
+
+        getCounties().then((result) => {
+            if (result.success && result.data) {
+                setCounties(result.data);
+            }
+        });
+
+        getContracts().then((result) => {
+            if (result.success && result.data) {
+                setContracts(result.data);
+            }
+        });
     }, [isEditMode, id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -122,6 +141,40 @@ const ExpenseForm: FC = () => {
                         onChange={handleChange}
                         required
                     />
+                </label>
+
+                <label>
+                    Contracts:
+                    <select
+                        name="contract_id"
+                        value={formData.contract_id}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select a Contract</option>
+                        {contracts.map((contract) => (
+                            <option key={contract.id} value={contract.id}>
+                                {contract.certification_id}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
+                <label>
+                    County:
+                    <select
+                        name="county_id"
+                        value={formData.county_id}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select a county</option>
+                        {counties.map((county) => (
+                            <option key={county.id} value={county.id}>
+                                {county.name}
+                            </option>
+                        ))}
+                    </select>
                 </label>
 
                 <button type="submit">{isEditMode ? 'Update' : 'Create'} Expense</button>

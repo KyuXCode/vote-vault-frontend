@@ -7,8 +7,15 @@ import {
     getInventoryUnitById,
     updateInventoryUnit
 } from "../../../utilities/api/InventoryUnitApi.ts";
+import {Expense} from "../../../Types/Expense.ts";
+import {Component} from "../../../Types/Component.ts";
+import {getComponents} from "../../../utilities/api/componentApi.ts";
+import {getExpenses} from "../../../utilities/api/expenseApi.ts";
 
 const InventoryForm: FC = () => {
+    const [components, setComponents] = useState<Component[]>([])
+    const [expenses, setExpenses] = useState<Expense[]>([])
+
     const [formData, setFormData] = useState<InventoryUnit>({
         acquisition_date: "",
         component_id: 0,
@@ -32,6 +39,18 @@ const InventoryForm: FC = () => {
             };
             fetchInventories();
         }
+
+        getComponents().then((result) => {
+            if (result.success && result.data) {
+                setComponents(result.data);
+            }
+        });
+
+        getExpenses().then((result) => {
+            if (result.success && result.data) {
+                setExpenses(result.data);
+            }
+        });
     }, [isEditMode, id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -116,17 +135,6 @@ const InventoryForm: FC = () => {
                 </label>
 
                 <label>
-                    Component ID:
-                    <input
-                        type="number"
-                        name="component_id"
-                        value={formData.component_id}
-                        onChange={handleChange}
-                        required
-                    />
-                </label>
-
-                <label>
                     Expense ID:
                     <input
                         type="number"
@@ -137,10 +145,45 @@ const InventoryForm: FC = () => {
                     />
                 </label>
 
+                <label>
+                    Component:
+                    <select
+                        name="component_id"
+                        value={formData.component_id}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select a Component</option>
+                        {components.map((component) => (
+                            <option key={component.id} value={component.id}>
+                                {component.name}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
+                <label>
+                    Expense:
+                    <select
+                        name="expense_id"
+                        value={formData.expense_id}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select a Expense</option>
+                        {expenses.map((expense) => (
+                            <option key={expense.id} value={expense.id}>
+                                {expense.name}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
                 <button type="submit">{isEditMode ? 'Update' : 'Create'} Inventory</button>
             </form>
         </div>
-    );
+    )
+        ;
 };
 
 export default InventoryForm;
