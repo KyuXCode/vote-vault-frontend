@@ -1,0 +1,38 @@
+.header {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  align-items: center;
+
+  h1 {
+    grid-column: span 2;
+    width: 100%;
+  }
+
+  button {
+    align-self: flex-start;
+    margin: auto 5rem;
+  }
+}
+
+.widget-container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.entity-count-widget {
+  width: 13rem;
+  height: 15rem;
+  background: white;
+  color: #000000;
+  padding: 2rem;
+  border-radius: 15px;
+
+  -webkit-box-shadow: 11px 10px 5px 0 rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 11px 10px 5px 0 rgba(0, 0, 0, 0.75);
+  box-shadow: 11px 10px 5px 0 rgba(0, 0, 0, 0.75);
+}
