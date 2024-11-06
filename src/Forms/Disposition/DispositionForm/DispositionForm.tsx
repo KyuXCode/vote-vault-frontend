@@ -13,7 +13,7 @@ const DispositionForm: FC = () => {
         inventory_unit_id: 0,
     });
 
-    const { id } = useParams<{ id?: string }>();
+    const {id} = useParams<{ id?: string }>();
     const navigate = useNavigate();
     const isEditMode = Boolean(id);
 
@@ -30,7 +30,7 @@ const DispositionForm: FC = () => {
     }, [isEditMode, id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -48,65 +48,72 @@ const DispositionForm: FC = () => {
         navigate('/dispositions');
     };
 
+    const handleGoBack = () => {
+        navigate(-1);
+    };
+
     return (
-        <form onSubmit={handleSubmit} className='disposition-form-container'>
-            <label>
-                Date:
-                <input
-                    type="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+        <div>
+            <button onClick={handleGoBack} className="go-back-button">Go back</button>
+            <form onSubmit={handleSubmit} className='disposition-form-container'>
+                <label>
+                    Date:
+                    <input
+                        type="date"
+                        name="date"
+                        value={formData.date}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Method:
-                <input
-                    type="string"
-                    name="method"
-                    value={formData.method}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Method:
+                    <input
+                        type="string"
+                        name="method"
+                        value={formData.method}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Entity:
-                <input
-                    type="string"
-                    name="entity"
-                    value={formData.entity}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Entity:
+                    <input
+                        type="string"
+                        name="entity"
+                        value={formData.entity}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Amount:
-                <input
-                    type="number"
-                    name="amount"
-                    value={formData.amount}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Amount:
+                    <input
+                        type="number"
+                        name="amount"
+                        value={formData.amount}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Inventory ID:
-                <input
-                    type="number"
-                    name="inventory_unit_id"
-                    value={formData.inventory_unit_id}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Inventory ID:
+                    <input
+                        type="number"
+                        name="inventory_unit_id"
+                        value={formData.inventory_unit_id}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <button type="submit">{isEditMode ? 'Update' : 'Create'} Disposition</button>
-        </form>
+                <button type="submit">{isEditMode ? 'Update' : 'Create'} Disposition</button>
+            </form>
+        </div>
     );
 };
 

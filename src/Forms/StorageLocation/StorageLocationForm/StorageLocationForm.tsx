@@ -53,70 +53,77 @@ const StorageLocationForm: FC = () => {
         navigate('/storage_locations');
     };
 
+    const handleGoBack = () => {
+        navigate(-1);
+    };
+
     return (
-        <form onSubmit={handleSubmit} className='storage-location-form-container'>
-            <label>
-                Name:
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                />
-            </label>
+        <div>
+            <button onClick={handleGoBack} className="go-back-button">Go back</button>
+            <form onSubmit={handleSubmit} className='storage-location-form-container'>
+                <label>
+                    Name:
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                    />
+                </label>
 
-            <label>
-                Address:
-                <input
-                    type="text"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                />
-            </label>
+                <label>
+                    Address:
+                    <input
+                        type="text"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
+                    />
+                </label>
 
-            <label>
-                City:
-                <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
-                />
-            </label>
+                <label>
+                    City:
+                    <input
+                        type="text"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                    />
+                </label>
 
-            <label>
-                State:
-                <input
-                    type="text"
-                    name="state"
-                    value={formData.state}
-                    onChange={handleChange}
-                />
-            </label>
+                <label>
+                    State:
+                    <input
+                        type="text"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleChange}
+                    />
+                </label>
 
-            <label>
-                Zip:
-                <input
-                    type="text"
-                    name="zip"
-                    value={formData.zip}
-                    onChange={handleChange}
-                />
-            </label>
+                <label>
+                    Zip:
+                    <input
+                        type="text"
+                        name="zip"
+                        value={formData.zip}
+                        onChange={handleChange}
+                    />
+                </label>
 
-            <label>
-                Inventory Unit ID:
-                <input
-                    type="number"
-                    name="inventory_unit_id"
-                    value={formData.inventory_unit_id}
-                    onChange={handleChange}
-                />
-            </label>
+                <label>
+                    Inventory Unit ID:
+                    <input
+                        type="number"
+                        name="inventory_unit_id"
+                        value={formData.inventory_unit_id}
+                        onChange={handleChange}
+                    />
+                </label>
 
-            <button type="submit">{isEditMode ? 'Update' : 'Create'} Storage Location</button>
-        </form>
+                <button type="submit">{isEditMode ? 'Update' : 'Create'} Storage Location</button>
+            </form>
+        </div>
     );
 };
 

@@ -45,59 +45,67 @@ const ComponentForm: FC = () => {
         navigate('/components');
     };
 
+    const handleGoBack = () => {
+        navigate(-1);
+    };
+
     return (
-        <form onSubmit={handleSubmit} className="component-form-container">
-            <label>
-                Name:
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+        <div>
+            <button onClick={handleGoBack} className="go-back-button">Go back</button>
 
-            <label>
-                Description:
-                <input
-                    type="text"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+            <form onSubmit={handleSubmit} className="component-form-container">
+                <label>
+                    Name:
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Type:
-                <select
-                    name="type"
-                    value={formData.type}
-                    onChange={handleChange}
-                    required
-                >
-                    {Object.values(ComponentType).map((compType) => (
-                        <option key={compType} value={compType}>
-                            {compType}
-                        </option>
-                    ))}
-                </select>
-            </label>
+                <label>
+                    Description:
+                    <input
+                        type="text"
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Certification ID:
-                <input
-                    type="number"
-                    name="certificationId"
-                    value={formData.certification_id}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Type:
+                    <select
+                        name="type"
+                        value={formData.type}
+                        onChange={handleChange}
+                        required
+                    >
+                        {Object.values(ComponentType).map((compType) => (
+                            <option key={compType} value={compType}>
+                                {compType}
+                            </option>
+                        ))}
+                    </select>
+                </label>
 
-            <button type="submit">{isEditMode ? 'Update' : 'Create'} Component</button>
-        </form>
+                <label>
+                    Certification ID:
+                    <input
+                        type="number"
+                        name="certificationId"
+                        value={formData.certification_id}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+
+                <button type="submit">{isEditMode ? 'Update' : 'Create'} Component</button>
+            </form>
+        </div>
     );
 };
 

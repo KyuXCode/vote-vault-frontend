@@ -1,15 +1,15 @@
 import {FC, useEffect, useState} from 'react';
-import { County } from '../../../Types/County.ts';
+import {County} from '../../../Types/County.ts';
 import './countyFormStyles.scss';
 import {createCounty, getCountyById, updateCounty} from '../../../utilities/api/countyApi.ts';
 import {useNavigate, useParams} from 'react-router-dom';
 
 const CountyForm: FC = () => {
-    const [formData, setFormData] = useState<County>( {
+    const [formData, setFormData] = useState<County>({
         name: ''
     });
 
-    const { id } = useParams<{ id?: string }>();
+    const {id} = useParams<{ id?: string }>();
     const navigate = useNavigate();
     const isEditMode = Boolean(id);
 
@@ -26,7 +26,7 @@ const CountyForm: FC = () => {
     }, [isEditMode, id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -43,21 +43,28 @@ const CountyForm: FC = () => {
         navigate('/counties');
     };
 
-    return (
-        <form onSubmit={handleSubmit} className="county-form-container">
-            <label>
-                County Name:
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+    const handleGoBack = () => {
+        navigate(-1);
+    };
 
-            <button type="submit">{formData.id ? 'Update' : 'Create'} County</button>
-        </form>
+    return (
+        <div>
+            <button onClick={handleGoBack} className="go-back-button">Go back</button>
+            <form onSubmit={handleSubmit} className="county-form-container">
+                <label>
+                    County Name:
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+
+                <button type="submit">{formData.id ? 'Update' : 'Create'} County</button>
+            </form>
+        </div>
     );
 };
 

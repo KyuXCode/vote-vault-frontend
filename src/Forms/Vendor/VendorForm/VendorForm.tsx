@@ -51,61 +51,70 @@ const VendorForm: FC = () => {
         navigate('/vendors');
     };
 
+    const handleGoBack = () => {
+        navigate(-1);
+    };
+
     return (
-        <form onSubmit={handleSubmit} className="vendor-form-container">
-            <label>
-                Name:
-                <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-            </label>
+        <div>
+            <button onClick={handleGoBack} className="go-back-button">Go back</button>
+            <form onSubmit={handleSubmit} className="vendor-form-container">
+                <label>
+                    Name:
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} required/>
+                </label>
 
-            <label>
-                Address:
-                <input type="text" name="address" value={formData.address || ''} onChange={handleChange} />
-            </label>
+                <label>
+                    Address:
+                    <input type="text" name="address" value={formData.address || ''} onChange={handleChange}/>
+                </label>
 
-            <label>
-                City:
-                <input type="text" name="city" value={formData.city || ''} onChange={handleChange} />
-            </label>
+                <label>
+                    City:
+                    <input type="text" name="city" value={formData.city || ''} onChange={handleChange}/>
+                </label>
 
-            <label>
-                State:
-                <input type="text" name="state" value={formData.state || ''} onChange={handleChange} />
-            </label>
+                <label>
+                    State:
+                    <input type="text" name="state" value={formData.state || ''} onChange={handleChange}/>
+                </label>
 
-            <label>
-                Zip:
-                <input type="text" name="zip" value={formData.zip || ''} onChange={handleChange} />
-            </label>
+                <label>
+                    Zip:
+                    <input type="text" name="zip" value={formData.zip || ''} onChange={handleChange}/>
+                </label>
 
-            <label>
-                Contact Name:
-                <input type="text" name="contact_name" value={formData.contact_name || ''} onChange={handleChange} />
-            </label>
+                <label>
+                    Contact Name:
+                    <input type="text" name="contact_name" value={formData.contact_name || ''} onChange={handleChange}/>
+                </label>
 
-            <label>
-                Contact Email:
-                <input type="email" name="contact_email" value={formData.contact_email || ''} onChange={handleChange} />
-            </label>
+                <label>
+                    Contact Email:
+                    <input type="email" name="contact_email" value={formData.contact_email || ''}
+                           onChange={handleChange}/>
+                </label>
 
-            <label>
-                Contact Phone:
-                <input type="tel" name="contact_phone" value={formData.contact_phone || ''} onChange={handleChange} />
-            </label>
+                <label>
+                    Contact Phone:
+                    <input type="tel" name="contact_phone" value={formData.contact_phone || ''}
+                           onChange={handleChange}/>
+                </label>
 
-            <label>
-                Product:
-                <select name="product" value={formData.product} onChange={handleChange} required>
-                    {Object.values(Product).map((productType) => (
-                        <option key={productType} value={productType}>
-                            {productType}
-                        </option>
-                    ))}
-                </select>
-            </label>
+                <label>
+                    Product:
+                    <select name="product" value={formData.product} onChange={handleChange} required>
+                        {Object.values(Product).map((productType) => (
+                            <option key={productType} value={productType}>
+                                {productType}
+                            </option>
+                        ))}
+                    </select>
+                </label>
 
-            <button type="submit">{isEditMode ? 'Update' : 'Create'} Vendor</button>
-        </form>
+                <button type="submit">{isEditMode ? 'Update' : 'Create'} Vendor</button>
+            </form>
+        </div>
     );
 };
 

@@ -50,76 +50,83 @@ const ExpenseForm: FC = () => {
         navigate('/expenses');
     };
 
+    const handleGoBack = () => {
+        navigate(-1);
+    };
+
     return (
-        <form onSubmit={handleSubmit} className='expense-form-container'>
-            <label>
-                Name
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+        <div>
+            <button onClick={handleGoBack} className="go-back-button">Go back</button>
+            <form onSubmit={handleSubmit} className='expense-form-container'>
+                <label>
+                    Name
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Amount
-                <input
-                    type="number"
-                    name="amount"
-                    value={formData.amount}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Amount
+                    <input
+                        type="number"
+                        name="amount"
+                        value={formData.amount}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Fund
-                <input
-                    type="text"
-                    name="fund"
-                    value={formData.fund}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Fund
+                    <input
+                        type="text"
+                        name="fund"
+                        value={formData.fund}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Owner
-                <input
-                    type="text"
-                    name="owner"
-                    value={formData.owner}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Owner
+                    <input
+                        type="text"
+                        name="owner"
+                        value={formData.owner}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Contract ID
-                <input
-                    type="number"
-                    name="contract_id"
-                    value={formData.contract_id}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Contract ID
+                    <input
+                        type="number"
+                        name="contract_id"
+                        value={formData.contract_id}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                County ID
-                <input
-                    type="number"
-                    name="county_id"
-                    value={formData.county_id}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    County ID
+                    <input
+                        type="number"
+                        name="county_id"
+                        value={formData.county_id}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <button type="submit">{isEditMode ? 'Update' : 'Create'} Expense</button>
-        </form>
+                <button type="submit">{isEditMode ? 'Update' : 'Create'} Expense</button>
+            </form>
+        </div>
     );
 };
 

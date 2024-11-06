@@ -2,9 +2,11 @@ import {FC, useEffect, useState} from 'react';
 import './dashboardStyles.scss'
 import {getDashboardData} from "../utilities/api/dashboardApi.ts";
 import {DashBoardData} from "../Types/DashBoardData.ts";
+import {useNavigate} from "react-router-dom";
 
 const Dashboard: FC = () => {
-    const[data, setData] = useState<DashBoardData>()
+    const [data, setData] = useState<DashBoardData>()
+    const navigate = useNavigate();
 
     useEffect(() => {
         getDashboardData().then((result) => {
@@ -14,14 +16,20 @@ const Dashboard: FC = () => {
         });
     }, [])
 
+    const handleGoBack = () => {
+        navigate(-1)
+    }
+
 
     return (
         <div className='dashboard-container'>
-            <h1>Dashboard overview</h1>
-
+            <div className="header">
+                <button onClick={handleGoBack} className="go-back-button">Go back</button>
+                <h1>Dashboard overview</h1>
+            </div>
             <div className="widget-container">
                 <div className="entity-count-widget">
-                    <h2>Total Vendors</h2>
+                <h2>Total Vendors</h2>
                     <h1>{data?.total_vendors}</h1>
                 </div>
 

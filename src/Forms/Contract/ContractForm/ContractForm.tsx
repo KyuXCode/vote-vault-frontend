@@ -13,7 +13,7 @@ const ContractForm: FC = () => {
         }
     );
 
-    const { id } = useParams<{ id?: string }>();
+    const {id} = useParams<{ id?: string }>();
     const navigate = useNavigate();
     const isEditMode = Boolean(id);
 
@@ -30,7 +30,7 @@ const ContractForm: FC = () => {
     }, [isEditMode, id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -47,59 +47,66 @@ const ContractForm: FC = () => {
         navigate('/contracts');
     };
 
+    const handleGoBack = () => {
+        navigate(-1);
+    };
+
     return (
-        <form onSubmit={handleSubmit} className="contract-form-container">
-            <label>
-                Begin Date:
-                <input
-                    type="date"
-                    name="begin_date"
-                    value={formData.begin_date}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+        <div>
+            <button onClick={handleGoBack} className="go-back-button">Go back</button>
+            <form onSubmit={handleSubmit} className="contract-form-container">
+                <label>
+                    Begin Date:
+                    <input
+                        type="date"
+                        name="begin_date"
+                        value={formData.begin_date}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                End Date:
-                <input
-                    type="date"
-                    name="end_date"
-                    value={formData.end_date}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    End Date:
+                    <input
+                        type="date"
+                        name="end_date"
+                        value={formData.end_date}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Type:
-                <select
-                    name="type"
-                    value={formData.type}
-                    onChange={handleChange}
-                    required
-                >
-                    {Object.values(ContractType).map((contractType) => (
-                        <option key={contractType} value={contractType}>
-                            {contractType}
-                        </option>
-                    ))}
-                </select>
-            </label>
+                <label>
+                    Type:
+                    <select
+                        name="type"
+                        value={formData.type}
+                        onChange={handleChange}
+                        required
+                    >
+                        {Object.values(ContractType).map((contractType) => (
+                            <option key={contractType} value={contractType}>
+                                {contractType}
+                            </option>
+                        ))}
+                    </select>
+                </label>
 
-            <label>
-                Certification ID:
-                <input
-                    type="number"
-                    name="certification_id"
-                    value={formData.certification_id}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Certification ID:
+                    <input
+                        type="number"
+                        name="certification_id"
+                        value={formData.certification_id}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <button type="submit">{formData.id ? 'Update' : 'Create'} Contract</button>
-        </form>
+                <button type="submit">{formData.id ? 'Update' : 'Create'} Contract</button>
+            </form>
+        </div>
     );
 };
 

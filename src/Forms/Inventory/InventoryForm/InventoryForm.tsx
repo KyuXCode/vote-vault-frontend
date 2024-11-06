@@ -18,7 +18,7 @@ const InventoryForm: FC = () => {
         usage: Usage.Active
     });
 
-    const { id } = useParams<{ id?: string }>();
+    const {id} = useParams<{ id?: string }>();
     const navigate = useNavigate();
     const isEditMode = Boolean(id);
 
@@ -35,7 +35,7 @@ const InventoryForm: FC = () => {
     }, [isEditMode, id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -53,86 +53,93 @@ const InventoryForm: FC = () => {
         navigate('/inventory_units');
     };
 
+    const handleGoBack = () => {
+        navigate(-1);
+    };
+
     return (
-        <form onSubmit={handleSubmit} className='inventory-form-container'>
-            <label>
-                Serial Number:
-                <input
-                    type="text"
-                    name="serial_number"
-                    value={formData.serial_number}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+        <div>
+            <button onClick={handleGoBack} className="go-back-button">Go back</button>
+            <form onSubmit={handleSubmit} className='inventory-form-container'>
+                <label>
+                    Serial Number:
+                    <input
+                        type="text"
+                        name="serial_number"
+                        value={formData.serial_number}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Acquisition Date:
-                <input
-                    type="date"
-                    name="acquisition_date"
-                    value={formData.acquisition_date}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Acquisition Date:
+                    <input
+                        type="date"
+                        name="acquisition_date"
+                        value={formData.acquisition_date}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Condition:
-                <select
-                    name="condition"
-                    value={formData.condition}
-                    onChange={handleChange}
-                    required
-                >
-                    {Object.values(Condition).map((condition) => (
-                        <option key={condition} value={condition}>
-                            {condition}
-                        </option>
-                    ))}
-                </select>
-            </label>
+                <label>
+                    Condition:
+                    <select
+                        name="condition"
+                        value={formData.condition}
+                        onChange={handleChange}
+                        required
+                    >
+                        {Object.values(Condition).map((condition) => (
+                            <option key={condition} value={condition}>
+                                {condition}
+                            </option>
+                        ))}
+                    </select>
+                </label>
 
-            <label>
-                Usage:
-                <select
-                    name="usage"
-                    value={formData.usage}
-                    onChange={handleChange}
-                    required
-                >
-                    {Object.values(Usage).map((usage) => (
-                        <option key={usage} value={usage}>
-                            {usage}
-                        </option>
-                    ))}
-                </select>
-            </label>
+                <label>
+                    Usage:
+                    <select
+                        name="usage"
+                        value={formData.usage}
+                        onChange={handleChange}
+                        required
+                    >
+                        {Object.values(Usage).map((usage) => (
+                            <option key={usage} value={usage}>
+                                {usage}
+                            </option>
+                        ))}
+                    </select>
+                </label>
 
-            <label>
-                Component ID:
-                <input
-                    type="number"
-                    name="component_id"
-                    value={formData.component_id}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Component ID:
+                    <input
+                        type="number"
+                        name="component_id"
+                        value={formData.component_id}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <label>
-                Expense ID:
-                <input
-                    type="number"
-                    name="expense_id"
-                    value={formData.expense_id}
-                    onChange={handleChange}
-                    required
-                />
-            </label>
+                <label>
+                    Expense ID:
+                    <input
+                        type="number"
+                        name="expense_id"
+                        value={formData.expense_id}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
 
-            <button type="submit">{isEditMode ? 'Update' : 'Create'} Inventory</button>
-        </form>
+                <button type="submit">{isEditMode ? 'Update' : 'Create'} Inventory</button>
+            </form>
+        </div>
     );
 };
 
