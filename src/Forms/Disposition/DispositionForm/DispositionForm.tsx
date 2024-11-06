@@ -105,7 +105,7 @@ const DispositionForm: FC = () => {
                 />
             </label>
 
-            <button type="submit">{isEditMode ? 'Update' : 'Create'} Certification</button>
+            <button type="submit">{isEditMode ? 'Update' : 'Create'} Disposition</button>
         </form>
     );
 };

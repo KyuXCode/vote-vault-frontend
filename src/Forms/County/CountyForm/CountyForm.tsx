@@ -56,7 +56,7 @@ const CountyForm: FC = () => {
                 />
             </label>
 
-            <button type="submit">{formData.id ? 'Update County' : 'Create County'}</button>
+            <button type="submit">{formData.id ? 'Update' : 'Create'} County</button>
         </form>
     );
 };

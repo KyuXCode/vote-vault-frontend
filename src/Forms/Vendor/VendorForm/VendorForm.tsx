@@ -104,7 +104,7 @@ const VendorForm: FC = () => {
                 </select>
             </label>
 
-            <button type="submit">{isEditMode ? 'Update' : 'Create'} Certification</button>
+            <button type="submit">{isEditMode ? 'Update' : 'Create'} Vendor</button>
         </form>
     );
 };

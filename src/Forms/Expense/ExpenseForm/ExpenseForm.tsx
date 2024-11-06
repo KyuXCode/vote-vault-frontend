@@ -118,7 +118,7 @@ const ExpenseForm: FC = () => {
                 />
             </label>
 
-            <button type="submit">{isEditMode ? 'Update' : 'Create'} Certification</button>
+            <button type="submit">{isEditMode ? 'Update' : 'Create'} Expense</button>
         </form>
     );
 };

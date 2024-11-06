@@ -98,7 +98,7 @@ const ContractForm: FC = () => {
                 />
             </label>
 
-            <button type="submit">{formData.id ? 'Update Contract' : 'Create Contract'}</button>
+            <button type="submit">{formData.id ? 'Update' : 'Create'} Contract</button>
         </form>
     );
 };
