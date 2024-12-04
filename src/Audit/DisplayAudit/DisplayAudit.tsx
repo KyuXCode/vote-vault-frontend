@@ -1,9 +1,9 @@
-import {FC, useEffect, useState} from 'react';
+import { FC, useEffect, useState } from 'react';
 import './displayAuditStyles.scss';
-import {Audit} from '../../Types/Audit';
-import {getPublicTest, getRandomTest} from '../../utilities/api/auditsApi';
-import {RandomAuditData} from '../../Types/RandomAuditData.ts';
-import {useNavigate} from "react-router-dom";
+import { Audit } from '../../Types/Audit';
+import { getPublicTest, getRandomTest } from '../../utilities/api/auditsApi';
+import { RandomAuditData } from '../../Types/RandomAuditData.ts';
+import { useNavigate } from "react-router-dom";
 
 const DisplayAudit: FC = () => {
     const [auditData, setAuditData] = useState<Audit>();
@@ -12,6 +12,47 @@ const DisplayAudit: FC = () => {
     const navigate = useNavigate();
     const handleGoBack = () => {
         navigate(-1);
+    };
+
+    const handleDownloadCSV = () => {
+        if (!auditData?.results || !auditData.results.length) {
+            alert("No data available to download.");
+            return;
+        }
+
+        const headers = [
+            "Inventory Id",
+            "Serial Number",
+            "Condition",
+            "Usage",
+            "Component Name",
+            "Total Count"
+        ];
+
+        const rows = auditData.results.map((data) => [
+            data.inventory_id,
+            data.serial_number,
+            data.condition,
+            data.usage,
+            data.component_name,
+            data.total_count
+        ]);
+
+        const csvContent = [
+            headers.join(","),
+            ...rows.map((row) => row.join(","))
+        ].join("\n");
+
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        const seedNumber = auditData?.seed_number || 'unknown_seed';
+        link.download = `${isPublicTest ? 'public_audit' : 'random_audit'}_${seedNumber}.csv`;
+        link.click();
+
+        URL.revokeObjectURL(url);
     };
 
     useEffect(() => {
@@ -39,6 +80,9 @@ const DisplayAudit: FC = () => {
                 <div className="header">
                     <h2>{isPublicTest ? 'Public Audit' : 'Random Audit'}</h2>
                     <p>Seed Number: {auditData?.seed_number || 'N/A'}</p>
+                </div>
+                <div className="csv-download-btn">
+                    <button onClick={handleDownloadCSV} className="download-csv-button">Download CSV</button>
                 </div>
             </div>
 
