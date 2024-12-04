@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react';
 import './contractFormStyles.scss';
+import '../../formStyle.scss'
 import {useNavigate, useParams} from 'react-router-dom';
 import {Contract, ContractType} from "../../../Types/Contract.ts";
 import {createContract, getContractById, updateContract} from "../../../utilities/api/contractApi.ts";
@@ -63,7 +64,7 @@ const ContractForm: FC = () => {
     return (
         <div>
             <button onClick={handleGoBack} className="go-back-button">Go back</button>
-            <form onSubmit={handleSubmit} className="contract-form-container">
+            <form onSubmit={handleSubmit} className="form-container">
                 <label>
                     Begin Date:
                     <input

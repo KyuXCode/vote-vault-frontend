@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react';
 import './inventoryFormStyles.scss'
+import '../../formStyle.scss'
 import {Condition, InventoryUnit, Usage} from "../../../Types/InventoryUnit.ts";
 import {useNavigate, useParams} from "react-router-dom";
 import {
@@ -79,7 +80,7 @@ const InventoryForm: FC = () => {
     return (
         <div>
             <button onClick={handleGoBack} className="go-back-button">Go back</button>
-            <form onSubmit={handleSubmit} className='inventory-form-container'>
+            <form onSubmit={handleSubmit} className='form-container'>
                 <label>
                     Serial Number:
                     <input

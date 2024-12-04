@@ -1,6 +1,7 @@
 import {FC, useEffect, useState} from 'react';
 import {County} from '../../../Types/County.ts';
 import './countyFormStyles.scss';
+import '../../formStyle.scss'
 import {createCounty, getCountyById, updateCounty} from '../../../utilities/api/countyApi.ts';
 import {useNavigate, useParams} from 'react-router-dom';
 
@@ -50,7 +51,7 @@ const CountyForm: FC = () => {
     return (
         <div>
             <button onClick={handleGoBack} className="go-back-button">Go back</button>
-            <form onSubmit={handleSubmit} className="county-form-container">
+            <form onSubmit={handleSubmit} className="form-container">
                 <label>
                     County Name:
                     <input
