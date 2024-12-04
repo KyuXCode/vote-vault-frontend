@@ -1,0 +1,11 @@
+.audit-container{
+  display: flex;
+  gap: 1rem;
+
+  flex-direction: column;
+
+  .audit-type{
+    display: flex;
+    gap: 1rem;
+  }
+}

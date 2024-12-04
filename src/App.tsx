@@ -20,6 +20,8 @@ import DisplayDispositions from "./Forms/Disposition/DisplayDispositions/Display
 import DisplayStorageLocations from "./Forms/StorageLocation/DisplayStorageLocations/DisplayStorageLocations.tsx";
 import StorageLocationForm from "./Forms/StorageLocation/StorageLocationForm/StorageLocationForm.tsx";
 import Dashboard from "./Dashboard/Dashboard.tsx";
+import Audit from "./Audit/Audit.tsx";
+import DisplayAudit from "./Audit/DisplayAudit/DisplayAudit.tsx";
 
 function App() {
   return (
@@ -28,6 +30,10 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home/>} />
                 <Route path='/dashboard' element={<Dashboard/>} />
+
+                <Route path='/audit' element={<Audit/>} />
+                <Route path='/audit/public_test' element={<DisplayAudit/>} />
+                <Route path='/audit/random' element={<DisplayAudit/>} />
 
                 <Route path="/vendors" element={<DisplayVendors/>} />
                 <Route path="/vendors/create" element={<VendorForm/>} />

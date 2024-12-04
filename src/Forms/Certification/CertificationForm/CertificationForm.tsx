@@ -12,6 +12,7 @@ import {
     getCertificationById
 } from "../../../utilities/api/certificationApi.ts";
 import './certificationFormStyles.scss';
+import '../../formStyle.scss';
 import { useNavigate, useParams } from "react-router-dom";
 import {getVendors} from "../../../utilities/api/vendorApi.ts";
 import {Vendor} from "../../../Types/Vendor.ts";
@@ -83,7 +84,7 @@ const CertificationForm: FC = () => {
     return (
         <div>
             <button onClick={handleGoBack} className="go-back-button">Go back</button>
-            <form onSubmit={handleSubmit} className="certification-form-container">
+            <form onSubmit={handleSubmit} className="form-container">
                 <label>
                     Model Number:
                     <input

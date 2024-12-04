@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react';
 import './storageLocationFormStyles.scss'
+import '../../formStyle.scss'
 import {useNavigate, useParams} from "react-router-dom";
 import {
     createStorageLocation,
@@ -60,7 +61,7 @@ const StorageLocationForm: FC = () => {
     return (
         <div>
             <button onClick={handleGoBack} className="go-back-button">Go back</button>
-            <form onSubmit={handleSubmit} className='storage-location-form-container'>
+            <form onSubmit={handleSubmit} className='form-container'>
                 <label>
                     Name:
                     <input

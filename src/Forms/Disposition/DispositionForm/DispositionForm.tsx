@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react';
 import './dispositionFormStyles.scss'
+import '../../formStyle.scss'
 import {Disposition} from "../../../Types/Disposition.ts";
 import {useNavigate, useParams} from "react-router-dom";
 import {createDisposition, getDispositionById, updateDisposition} from "../../../utilities/api/dispositionApi.ts";
@@ -55,7 +56,7 @@ const DispositionForm: FC = () => {
     return (
         <div>
             <button onClick={handleGoBack} className="go-back-button">Go back</button>
-            <form onSubmit={handleSubmit} className='disposition-form-container'>
+            <form onSubmit={handleSubmit} className='form-container'>
                 <label>
                     Date:
                     <input

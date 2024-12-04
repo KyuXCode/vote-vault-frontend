@@ -1,6 +1,7 @@
 import {FC, useEffect, useState} from 'react';
 import { Product, Vendor } from '../../../Types/Vendor.ts';
 import './vendorFormStyles.scss';
+import '../../formStyle.scss'
 import {createVendor, getVendorById, updateVendor} from '../../../utilities/api/vendorApi.ts';
 import {useNavigate, useParams} from 'react-router-dom';
 
@@ -58,7 +59,7 @@ const VendorForm: FC = () => {
     return (
         <div>
             <button onClick={handleGoBack} className="go-back-button">Go back</button>
-            <form onSubmit={handleSubmit} className="vendor-form-container">
+            <form onSubmit={handleSubmit} className="form-container">
                 <label>
                     Name:
                     <input type="text" name="name" value={formData.name} onChange={handleChange} required/>

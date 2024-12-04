@@ -3,6 +3,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {ComponentType, Component} from "../../../Types/Component.ts";
 import {createComponent, updateComponent, getComponentById} from "../../../utilities/api/componentApi.ts";
 import './componentFormStyles.scss';
+import '../../formStyle.scss'
 import {getCertifications} from "../../../utilities/api/certificationApi.ts";
 import {Certification} from "../../../Types/Certification.ts";
 
@@ -62,7 +63,7 @@ const ComponentForm: FC = () => {
         <div>
             <button onClick={handleGoBack} className="go-back-button">Go back</button>
 
-            <form onSubmit={handleSubmit} className="component-form-container">
+            <form onSubmit={handleSubmit} className="form-container">
                 <label>
                     Name:
                     <input

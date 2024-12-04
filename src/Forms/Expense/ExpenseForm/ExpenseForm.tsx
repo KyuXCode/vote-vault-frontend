@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react';
 import './expenseFormStyles.scss'
+import '../../formStyle.scss'
 import {useNavigate, useParams} from "react-router-dom";
 import {Expense} from "../../../Types/Expense.ts";
 import {createExpense, getExpenseById, updateExpense} from "../../../utilities/api/expenseApi.ts";
@@ -76,7 +77,7 @@ const ExpenseForm: FC = () => {
     return (
         <div>
             <button onClick={handleGoBack} className="go-back-button">Go back</button>
-            <form onSubmit={handleSubmit} className='expense-form-container'>
+            <form onSubmit={handleSubmit} className='form-container'>
                 <label>
                     Name
                     <input
