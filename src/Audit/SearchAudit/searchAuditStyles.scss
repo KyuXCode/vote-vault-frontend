@@ -1,0 +1,44 @@
+.search-audit-container {
+  width: 80vw;
+
+  .header{
+    display: flex;
+    justify-content: flex-start;
+    gap: 5rem;
+
+    button{
+      margin: 0;
+      align-self: center;
+    }
+  }
+
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .form-group {
+      margin-bottom: 15px;
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      .form-input,
+      .form-select {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+
+        &:focus {
+          border-color: #4caf50;
+          outline: none;
+        }
+      }
+    }
+  }
+}

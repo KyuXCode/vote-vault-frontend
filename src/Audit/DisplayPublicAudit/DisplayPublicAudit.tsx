@@ -1,15 +1,14 @@
-import {FC, useEffect, useState} from 'react';
-import './displayAuditStyles.scss';
-import { getRandomTest} from '../../utilities/api/auditsApi';
-import {RandomAuditData} from '../../Types/RandomAuditData.ts';
-import {useNavigate} from "react-router-dom";
-import {RandomAudit} from "../../Types/Audit.ts";
+import { FC, useEffect, useState } from 'react';
+import './displayPublicAuditStyles.scss';
+import {PublicAudit} from '../../Types/Audit';
+import { getPublicTest } from '../../utilities/api/auditsApi';
+import { useNavigate } from "react-router-dom";
 
-const DisplayAudit: FC = () => {
-    const [auditData, setAuditData] = useState<RandomAudit>();
+const DisplayPublicAudit: FC = () => {
+    const [auditData, setAuditData] = useState<PublicAudit>();
     const [seedNumber, setSeedNumber] = useState<string>("");
-
     const navigate = useNavigate();
+
     const handleGoBack = () => {
         navigate(-1);
     };
@@ -43,55 +42,39 @@ const DisplayAudit: FC = () => {
             ...rows.map((row) => row.join(","))
         ].join("\n");
 
-        const blob = new Blob([csvContent], {type: 'text/csv'});
+        const blob = new Blob([csvContent], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
 
         const link = document.createElement('a');
         link.href = url;
-        const seedNumber = auditData?.seed_number || 'unknown_seed';
-        link.download =  `'random_audit_${seedNumber}.csv`;
+        link.download = `public_audit_${seedNumber || 'unknown_seed'}.csv`;
         link.click();
 
         URL.revokeObjectURL(url);
     };
 
     useEffect(() => {
-        const url = new URL(window.location.href);
-
-        const params = new URLSearchParams(url.search);
-        const seed = params.get('seed_number');
-
-        if (seed) {
-            setSeedNumber(seed);
-        }
-    }, []);
-
-    useEffect(() => {
         const fetchAuditData = async () => {
+            const url = new URL(window.location.href);
+            const params = new URLSearchParams(url.search);
+            const seed = params.get('seed_number');
+
+            if (seed) {
+                setSeedNumber(seed);
+            }
+
             try {
-                if (seedNumber != "") {
-                    console.log(seedNumber)
-                    getRandomTest(seedNumber).then((result) => {
-                        if (result.success && result.data) {
-                            setAuditData(result.data);
-                            return
-                        }
-                    });
-                } else {
-                    getRandomTest().then((result) => {
-                        if (result.success && result.data) {
-                            setAuditData(result.data);
-                            return
-                        }
-                    });
+                const result = await getPublicTest();
+                if (result.success && result.data) {
+                    setAuditData(result.data);
                 }
             } catch (error) {
-                console.error('Failed to fetch audit data:', error);
+                console.error('Failed to fetch public test data:', error);
             }
         };
 
         fetchAuditData();
-    }, [seedNumber]);
+    }, []);
 
     return (
         <div className="display-audit-container audit-data-container">
@@ -100,7 +83,7 @@ const DisplayAudit: FC = () => {
                     <button onClick={handleGoBack} className="go-back-button">Go back</button>
                 </div>
                 <div className="header">
-                    <h2>Random Audit</h2>
+                    <h2>Public Audit</h2>
                     <p>Seed Number: {auditData?.seed_number || 'N/A'}</p>
                 </div>
                 <div className="csv-download-btn">
@@ -118,23 +101,23 @@ const DisplayAudit: FC = () => {
                     <p>Total Count</p>
                 </div>
 
-                {auditData?.results?.length ? (
-                    auditData.results.map((data: RandomAuditData) => (
-                        <div key={data.inventory_id} className="data-row">
-                            <p>{data.inventory_id}</p>
-                            <p>{data.serial_number}</p>
-                            <p>{data.condition}</p>
-                            <p>{data.usage}</p>
-                            <p>{data.component_name}</p>
-                            <p>{data.total_count}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p>No audit data available.</p>
-                )}
+                {/*{auditData?.results?.length ? (*/}
+                {/*    auditData.results.map((data) => (*/}
+                {/*        <div className="data-row">*/}
+                {/*            <p>{data.inventory_id}</p>*/}
+                {/*            <p>{data.serial_number}</p>*/}
+                {/*            <p>{data.condition}</p>*/}
+                {/*            <p>{data.usage}</p>*/}
+                {/*            <p>{data.component_name}</p>*/}
+                {/*            <p>{data.total_count}</p>*/}
+                {/*        </div>*/}
+                {/*    ))*/}
+                {/*) : (*/}
+                {/*    <p>No audit data available.</p>*/}
+                {/*)}*/}
             </div>
         </div>
     );
 };
 
-export default DisplayAudit;
+export default DisplayPublicAudit;

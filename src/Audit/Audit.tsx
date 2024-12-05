@@ -13,8 +13,9 @@ const Audit: FC = () => {
             <button onClick={handleGoBack} className="go-back-button">Go back</button>
 
             <div className="audit-type">
-                <button onClick={() => navigate("/audit/public_test")}>Public Test Audit</button>
-                <button onClick={() => navigate("/audit/random")}>Random Audit</button>
+                <button onClick={() => navigate("/audits/public_test")}>Public Test Audit</button>
+                <button onClick={() => navigate("/audits/random")}>Random Audit</button>
+                <button onClick={() => navigate("/audits/search")}>Search Audit</button>
             </div>
         </div>
     );

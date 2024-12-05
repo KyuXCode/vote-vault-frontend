@@ -22,6 +22,8 @@ import StorageLocationForm from "./Forms/StorageLocation/StorageLocationForm/Sto
 import Dashboard from "./Dashboard/Dashboard.tsx";
 import Audit from "./Audit/Audit.tsx";
 import DisplayAudit from "./Audit/DisplayAudit/DisplayAudit.tsx";
+import SearchAudit from "./Audit/SearchAudit/SearchAudit.tsx";
+import DisplayPublicAudit from "./Audit/DisplayPublicAudit/DisplayPublicAudit.tsx";
 
 function App() {
   return (
@@ -31,9 +33,10 @@ function App() {
                 <Route path="/" element={<Home/>} />
                 <Route path='/dashboard' element={<Dashboard/>} />
 
-                <Route path='/audit' element={<Audit/>} />
-                <Route path='/audit/public_test' element={<DisplayAudit/>} />
-                <Route path='/audit/random' element={<DisplayAudit/>} />
+                <Route path='/audits' element={<Audit/>} />
+                <Route path='/audits/public_test' element={<DisplayPublicAudit/>} />
+                <Route path='/audits/random' element={<DisplayAudit/>} />
+                <Route path='/audits/search' element={<SearchAudit/>} />
 
                 <Route path="/vendors" element={<DisplayVendors/>} />
                 <Route path="/vendors/create" element={<VendorForm/>} />
