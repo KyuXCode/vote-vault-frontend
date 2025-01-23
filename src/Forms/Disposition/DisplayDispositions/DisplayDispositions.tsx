@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react';
 import './displayDispositionsStyles.scss'
+import '../../formDisplayStyle.scss'
 import {useNavigate} from "react-router-dom";
 import {Disposition} from "../../../Types/Disposition.ts";
 import {deleteDisposition, getDispositions} from "../../../utilities/api/dispositionApi.ts";
@@ -29,7 +30,7 @@ const DisplayDispositions: FC = () => {
         navigate('/dispositions/create');
     };
     return (
-        <div className='display-dispositions-container'>
+        <div className='display-dispositions-container form-display'>
             <button className=" " onClick={() => navigate('/')}>
                 HOME
             </button>

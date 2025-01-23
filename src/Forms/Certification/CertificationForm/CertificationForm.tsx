@@ -82,7 +82,7 @@ const CertificationForm: FC = () => {
     };
 
     return (
-        <div>
+        <div className='form'>
             <button onClick={handleGoBack} className="go-back-button">Go back</button>
             <form onSubmit={handleSubmit} className="form-container">
                 <label>

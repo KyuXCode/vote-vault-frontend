@@ -23,10 +23,10 @@ const Dashboard: FC = () => {
 
     return (
         <div className='dashboard-container'>
-            <div className="header">
-                <button onClick={handleGoBack} className="go-back-button">Go back</button>
-                <h1>Dashboard overview</h1>
-            </div>
+            {/*<div className="header">*/}
+            {/*    <button onClick={handleGoBack} className="go-back-button">Go back</button>*/}
+            {/*    <h1>Dashboard overview</h1>*/}
+            {/*</div>*/}
             <div className="widget-container">
                 <div className="entity-count-widget">
                 <h2>Total Vendors</h2>
@@ -50,7 +50,7 @@ const Dashboard: FC = () => {
 
                 <div className="entity-count-widget">
                     <h2>Total Expenses</h2>
-                    <h1>${data?.total_expenses}</h1>
+                    <h2>${data?.total_expenses}</h2>
                 </div>
 
                 <div className="entity-count-widget">
