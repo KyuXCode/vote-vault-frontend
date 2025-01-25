@@ -2,11 +2,11 @@ import {FC, useEffect, useState} from 'react';
 import './dashboardStyles.scss'
 import {getDashboardData} from "../utilities/api/dashboardApi.ts";
 import {DashBoardData} from "../Types/DashBoardData.ts";
-import {useNavigate} from "react-router-dom";
+// import {useNavigate} from "react-router-dom";
 
 const Dashboard: FC = () => {
     const [data, setData] = useState<DashBoardData>()
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         getDashboardData().then((result) => {
@@ -16,9 +16,9 @@ const Dashboard: FC = () => {
         });
     }, [])
 
-    const handleGoBack = () => {
-        navigate(-1)
-    }
+    // const handleGoBack = () => {
+    //     navigate(-1)
+    // }
 
 
     return (
