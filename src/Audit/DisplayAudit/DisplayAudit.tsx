@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import './displayAuditStyles.scss';
 import { Audit } from '../../Types/Audit';
-import { getPublicTest, getRandomTest } from '../../utilities/api/auditsApi';
+import { getRandomTest } from '../../utilities/api/auditsApi';
 import { RandomAuditData } from '../../Types/RandomAuditData.ts';
 import { useNavigate } from "react-router-dom";
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Vendor } from "../../../Types/Vendor.ts";
 import {deleteVendor, getVendors} from "../../../utilities/api/vendorApi.ts";
 import './displayVendorsStyles.scss';
+import '../../formDisplayStyle.scss';
 
 const DisplayVendors: FC = () => {
     const [vendors, setVendors] = useState<Vendor[]>([]);
@@ -31,7 +32,7 @@ const DisplayVendors: FC = () => {
 
 
     return (
-        <div className='display-vendors-container'>
+        <div className='display-vendors-container form-display'>
             <button className=" " onClick={() => navigate('/')}>
                 HOME
             </button>

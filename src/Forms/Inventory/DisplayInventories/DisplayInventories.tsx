@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react';
 import './displayInventoriesStyles.scss'
+import '../../formDisplayStyle.scss';
 import {InventoryUnit} from "../../../Types/InventoryUnit.ts";
 import {useNavigate} from "react-router-dom";
 import {deleteInventoryUnit, getInventoryUnits} from "../../../utilities/api/InventoryUnitApi.ts";
@@ -29,7 +30,7 @@ const DisplayInventories: FC = () => {
     };
 
     return (
-        <div className='display-inventories-container'>
+        <div className='display-inventories-container form-display'>
             <button className=" " onClick={() => navigate('/')}>
                 HOME
             </button>

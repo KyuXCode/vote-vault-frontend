@@ -1,3 +1,9 @@
+@import '../assets/color';
+
+.dashboard-container {
+  margin: 3rem 0;
+}
+
 .header {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

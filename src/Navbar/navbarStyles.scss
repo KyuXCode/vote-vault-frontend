@@ -1,0 +1,29 @@
+@import '../assets/color';
+
+.navbar{
+  width: 100vw;
+  height: 5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: $primary-color;
+  gap: 2rem;
+  cursor: pointer;
+
+  .logo{
+    width: 10rem;
+    height: 5rem;
+    background-color: white;
+
+    text-align: center;
+    color: $primary-color;
+
+    line-height: 5rem;
+  }
+
+  .item{
+    color: white;
+    align-self: center;
+  }
+}

@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react';
 import './displayStorageLocationsStyles.scss'
+import '../../formDisplayStyle.scss'
 import {useNavigate} from "react-router-dom";
 import {StorageLocation} from "../../../Types/StorageLocation.ts";
 import {deleteStorageLocation, getStorageLocations} from "../../../utilities/api/storageLocationApi.ts";
@@ -30,7 +31,7 @@ const DisplayStorageLocations: FC = () => {
     };
 
     return (
-        <div className='display-storage-locations-container'>
+        <div className='display-storage-locations-container form-display'>
             <button className=" " onClick={() => navigate('/')}>
                 HOME
             </button>

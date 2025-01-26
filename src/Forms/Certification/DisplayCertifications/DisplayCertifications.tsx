@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react';
 import './displayCertificationStyles.scss'
+import '../../formDisplayStyle.scss';
 import {useNavigate} from "react-router-dom";
 import {Certification} from "../../../Types/Certification.ts";
 import {deleteCertification, getCertifications} from "../../../utilities/api/certificationApi.ts";
@@ -31,7 +32,7 @@ const DisplayCertifications: FC = () => {
 
 
     return (
-        <div className='display-certifications-container'>
+        <div className='display-certifications-container form-display'>
             <button className=" " onClick={() => navigate('/')}>
                 HOME
             </button>

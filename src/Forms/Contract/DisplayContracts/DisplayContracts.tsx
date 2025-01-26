@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './displayContractsStyles.scss';
+import '../../formDisplayStyle.scss';
 import {deleteContract, getContracts} from "../../../utilities/api/contractApi.ts";
 import {Contract} from "../../../Types/Contract.ts";
 
@@ -31,7 +32,7 @@ const DisplayContracts: FC = () => {
 
 
     return (
-        <div className='display-contracts-container'>
+        <div className='display-contracts-container form-display'>
             <button className=" " onClick={() => navigate('/')}>
                 HOME
             </button>
