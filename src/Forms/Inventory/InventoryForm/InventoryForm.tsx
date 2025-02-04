@@ -4,6 +4,7 @@ import '../../formStyle.scss';
 import { Condition, InventoryUnit, Usage } from "../../../Types/InventoryUnit.ts";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+    batchCreateInventoryUnits,
     createInventoryUnit,
     getInventoryUnitById,
     updateInventoryUnit
@@ -16,7 +17,7 @@ import { getExpenses } from "../../../utilities/api/expenseApi.ts";
 const InventoryForm: FC = () => {
     const [components, setComponents] = useState<Component[]>([]);
     const [expenses, setExpenses] = useState<Expense[]>([]);
-    const [formCount, setFormCount] = useState<InventoryUnit[]>([{
+    const [batchFormData, setBatchFormData] = useState<InventoryUnit[]>([{
         acquisition_date: "",
         component_id: 0,
         condition: Condition.New,
@@ -31,7 +32,7 @@ const InventoryForm: FC = () => {
 
     const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormCount((prevData) => {
+        setBatchFormData((prevData) => {
             const newData = [...prevData];
             newData[index] = {
                 ...newData[index],
@@ -41,13 +42,11 @@ const InventoryForm: FC = () => {
         });
     };
 
-    const handleSubmit = async (index: number, e: React.FormEvent) => {
-        e.preventDefault();
-        const formData = formCount[index];
+    const handleSubmit = async (index:number) => {
         if (isEditMode && id) {
-            await updateInventoryUnit(id, formData);
+            await updateInventoryUnit(id, batchFormData[0]);
         } else {
-            await createInventoryUnit(formData);
+            await createInventoryUnit(batchFormData[index]);
         }
         navigate('/inventory_units');
     };
@@ -57,11 +56,11 @@ const InventoryForm: FC = () => {
     };
 
     const handleDelete = (index: number) => {
-        setFormCount((prev) => prev.filter((_, i) => i !== index));
+        setBatchFormData((prev) => prev.filter((_, i) => i !== index));
     };
 
     const handleFormAdd = () => {
-        setFormCount((prev) => [
+        setBatchFormData((prev) => [
             ...prev,
             {
                 acquisition_date: "",
@@ -74,12 +73,24 @@ const InventoryForm: FC = () => {
         ]);
     };
 
+    const handleBatchUpload = async () => {
+        await batchCreateInventoryUnits({ inventory_units: batchFormData });
+        setBatchFormData([{
+            acquisition_date: "",
+            component_id: 0,
+            condition: Condition.New,
+            expense_id: 0,
+            serial_number: "",
+            usage: Usage.Active
+        }]);
+    };
+
     const formAdd = (index: number) => {
-        const formData = formCount[index];
+        const formData = batchFormData[index];
         return (
-            <div key={index}>
+            <div style = {{margin:1}} key={index}>
                 <button onClick={() => handleDelete(index)}>Delete</button>
-                <form onSubmit={(e) => handleSubmit(index, e)} className='form-container'>
+                <form onSubmit={() => handleSubmit(index)} className='form-container'>
                     <label>
                         Serial Number:
                         <input
@@ -190,7 +201,7 @@ const InventoryForm: FC = () => {
             const fetchInventories = async () => {
                 const result = await getInventoryUnitById(id);
                 if (result.success && result.data) {
-                    setFormCount([result.data]);
+                    setBatchFormData([result.data]);
                 }
             };
             fetchInventories();
@@ -221,10 +232,11 @@ const InventoryForm: FC = () => {
                 justifyContent: 'space-between',
                 width: '100%'
             }}>
-                <button onClick={handleGoBack} className="go-back-button">Go back</button>
-                <button onClick={handleFormAdd}>Add Form</button>
+                <button style = {{margin:1}} onClick={handleGoBack} className="go-back-button">Go back</button>
+                <button style = {{margin:1}} onClick={handleFormAdd}>Add Form</button>
+                <button style = {{margin:1}} onClick={handleBatchUpload}>Batch Create Form</button>
             </div>
-            {formCount.map((_, index) => (
+            {batchFormData.map((_, index) => (
                 <div key={index}>{formAdd(index)}</div>
             ))}
         </div>
