@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import {useAuth} from "../Auth/AuthContext.tsx";
 
-export const PrivateRoute: React.FC<{ element: JSX.Element; requiredRoles?: [string] }> = ({ element, requiredRoles }) => {
+export const PrivateRoute: React.FC<{ element: JSX.Element; requiredRoles?: string[] }> = ({ element, requiredRoles }) => {
     const { user } = useAuth();
 
     const token = localStorage.getItem("XSRF-TOKEN");

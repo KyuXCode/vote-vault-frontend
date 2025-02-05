@@ -37,7 +37,7 @@ const Register: FC = () => {
 
     const [formData, setFormData] = useState<UserCredential>(credential);
 
-    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [errors, setErrors] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
 
     // Handles form input changes
@@ -47,16 +47,16 @@ const Register: FC = () => {
 
     // Form validation
     const validateForm = () => {
-        const newErrors: Partial<UserCredential> = {};
+        const newErrors: string[] = [];
 
         Object.entries(formData).forEach(([key, value]) => {
             if (!value) {
-                newErrors[key as keyof UserCredential] = `${key.replace(/_/g, " ")} is required`;
+                newErrors.push(`${key.replace(/_/g, " ")} is required`);
             }
         });
 
         if (formData.password !== formData.password_confirmation) {
-            newErrors.password_confirmation = "Passwords do not match";
+            newErrors.push("Passwords do not match");
         }
 
         setErrors(newErrors);
@@ -111,7 +111,7 @@ const Register: FC = () => {
 
                 <div className="input-group">
                     <label>Phone</label>
-                    <input type="text" name="phone" value={formData.phone} onChange={handleChange}/>
+                    <input type="tel" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required value={formData.phone} onChange={handleChange} placeholder={"1234567890"}/>
                 </div>
 
                 <div className="input-group">
