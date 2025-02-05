@@ -28,6 +28,7 @@ import {AuthProvider} from "./Auth/AuthContext.tsx";
 import {PrivateRoute} from "./utilities/PrivateRoute.tsx";
 import Home from "./Home/Home.tsx";
 import Register from "./Auth/Register/Register.tsx";
+import UnauthorizedPage from "./UnauthorizedPage/UnauthorizedPage.tsx";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
                     <Route path="/" element={ <PrivateRoute requiredRoles={["User"]} element={<Home />} /> } />
 
