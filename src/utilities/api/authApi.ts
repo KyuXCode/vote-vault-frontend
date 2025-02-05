@@ -45,11 +45,13 @@ export async function userLogin(credential: LoginCredential) {
             body: JSON.stringify(credential)
         })
 
+        const data = await res.json() as AuthToken;
+
         if (res.status === 200) {
-            return await res.json() as AuthToken;
+            return {success: true, data: data};
         }
     } catch (error) {
-        console.error('Login Failed: ', error);
+        return {success: false, error}
     }
 }
 

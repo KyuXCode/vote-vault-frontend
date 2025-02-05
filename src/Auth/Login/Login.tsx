@@ -16,10 +16,13 @@ const Login: FC = () => {
         e.preventDefault();
         setLoading(true);
 
-        await login({
+        const res = await login({
             email: email,
             password: password
         });
+
+
+        console.log(res)
 
         setLoading(false);
 

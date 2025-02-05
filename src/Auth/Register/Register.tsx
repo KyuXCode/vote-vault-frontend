@@ -7,20 +7,35 @@ import './registerStyle.scss'
 import {registerUser} from "../../utilities/api/authApi.ts";
 
 const Register: FC = () => {
+    const credential: UserCredential = {
+        name: "John Doe",
+        email: "test@gmail.com",
+        password: "password123",
+        password_confirmation: "password123",
+        phone: "1234567890",
+        username: "testuser",
+        supervisor_name: "Jane Smith",
+        supervisor_email: "janesmith@company.com",
+        organization: OrgType.County,
+        role: Role.User
+    }
+
     const navigate = useNavigate();
 
-    const [formData, setFormData] = useState<UserCredential>({
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
-        phone: "",
-        username: "",
-        supervisor_name: "",
-        supervisor_email: "",
-        organization: OrgType.County,
-        role: Role.User,
-    });
+    // const [formData, setFormData] = useState<UserCredential>({
+    //     name: "",
+    //     email: "",
+    //     password: "",
+    //     password_confirmation: "",
+    //     phone: "",
+    //     username: "",
+    //     supervisor_name: "",
+    //     supervisor_email: "",
+    //     organization: OrgType.County,
+    //     role: Role.User,
+    // });
+
+    const [formData, setFormData] = useState<UserCredential>(credential);
 
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(false);

@@ -21,24 +21,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         getUserInfo().then( user => {
             if (user) {
                 setUser(user)
-                console.log(user.name)
+                console.log(user.role)
             }
         })
     }, []);
 
     const login = async (loginCredential: LoginCredential) => {
-        try {
            const res = await userLogin(loginCredential)
             console.log(res)
-            if (res) {
-                localStorage.setItem("XSRF-TOKEN", res.access_token)
-                localStorage.setItem("expires_at", res.expires_at)
+            if (res && res.data) {
+                localStorage.setItem("XSRF-TOKEN", res.data.access_token)
+                localStorage.setItem("expires_at", res.data.expires_at)
                 setIsAuthenticated(true);
                 setUser(user);
             }
-        } catch (error) {
-            console.error("Login failed", error);
-        }
     };
 
     // Handle logout (clear state & invalidate session)

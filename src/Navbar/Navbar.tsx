@@ -1,9 +1,11 @@
 import {FC} from 'react';
 import './navbarStyles.scss'
 import {useNavigate} from "react-router-dom";
+import {useAuth} from "../Auth/AuthContext.tsx";
 
 const Navbar: FC = () => {
     const navigate = useNavigate();
+    const { user, logout } = useAuth()
 
     return (
         <div className="navbar">
@@ -18,6 +20,7 @@ const Navbar: FC = () => {
             <div className='item' onClick={() => navigate("/dispositions")}>Dispositions</div>
             <div className='item' onClick={() => navigate("/storage_locations")}>Storage Locations</div>
             <div className='item' onClick={() => navigate("/audit")}>Audits</div>
+            <div className='item' onClick={() => logout()}>{user?.name} Logout</div>
         </div>
     );
 };
