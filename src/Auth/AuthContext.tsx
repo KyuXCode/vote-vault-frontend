@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         getUserInfo().then( user => {
             if (user) {
                 setUser(user)
-                console.log(user.role)
+                console.log(user.name)
             }
         })
     }, []);

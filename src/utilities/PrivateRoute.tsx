@@ -15,6 +15,11 @@ export const PrivateRoute: React.FC<{ element: JSX.Element; requiredRoles?: stri
         if (requiredRoles && !requiredRoles.includes(user.role)) return <Navigate to="/unauthorized"/>;
     }
 
+    if(requiredRoles && user) {
+        console.log(requiredRoles)
+        console.log(user.role)
+    }
+
     if (expires_at) {
         const exp = new Date(expires_at).getTime();
         if (exp < Date.now()) {

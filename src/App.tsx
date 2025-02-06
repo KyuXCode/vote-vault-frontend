@@ -29,6 +29,7 @@ import {PrivateRoute} from "./utilities/PrivateRoute.tsx";
 import Home from "./Home/Home.tsx";
 import Register from "./Auth/Register/Register.tsx";
 import UnauthorizedPage from "./UnauthorizedPage/UnauthorizedPage.tsx";
+import MagicVerify from "./Auth/MagicLink/MagicVerify.tsx";
 
 function App() {
   return (
@@ -39,8 +40,9 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/unauthorized" element={<UnauthorizedPage />} />
+                    <Route path="/magic-login" element={<MagicVerify />} />
 
-                    <Route path="/" element={ <PrivateRoute requiredRoles={["User"]} element={<Home />} /> } />
+                    <Route path="/" element={ <PrivateRoute requiredRoles={["User", "Admin"]} element={<Home />} /> } />
 
                     <Route path='/dashboard' element={ <PrivateRoute requiredRoles={["User"]} element={<Dashboard />} />} />
 
