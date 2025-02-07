@@ -29,7 +29,8 @@ import {PrivateRoute} from "./utilities/PrivateRoute.tsx";
 import Home from "./Home/Home.tsx";
 import Register from "./Auth/Register/Register.tsx";
 import UnauthorizedPage from "./UnauthorizedPage/UnauthorizedPage.tsx";
-import MagicVerify from "./Auth/MagicLink/MagicVerify.tsx";
+import MagicVerify from "./Auth/MagicLink/MagicVerify/MagicVerify.tsx";
+import MagicLinkSendView from "./Auth/MagicLink/MagicLinkSendView/MagicLinkSendView.tsx";
 
 function App() {
   return (
@@ -41,12 +42,13 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/unauthorized" element={<UnauthorizedPage />} />
                     <Route path="/magic-login" element={<MagicVerify />} />
+                    <Route path="/send-magic-link" element={<MagicLinkSendView />} />
 
                     <Route path="/" element={ <PrivateRoute requiredRoles={["User", "Admin"]} element={<Home />} /> } />
 
-                    <Route path='/dashboard' element={ <PrivateRoute requiredRoles={["User"]} element={<Dashboard />} />} />
+                    <Route path='/dashboard' element={ <Dashboard />} />
 
-                    <Route path='/audit' element={ <PrivateRoute requiredRoles={["User"]} element={<Audit />} /> } />
+                    <Route path='/audit' element={ <PrivateRoute requiredRoles={["Admin"]} element={<Audit />} /> } />
                     <Route path='/audit/public_test' element={<DisplayAudit/>} />
                     <Route path='/audit/random' element={<DisplayAudit/>} />
 

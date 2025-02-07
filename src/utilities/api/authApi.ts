@@ -77,4 +77,16 @@ export async function registerUser(credential: UserCredential) {
     })
 }
 
+export async function sendMagicLink(email: string) {
+    await getCsrfCookie()
+    const body = {
+        email: email,
+    }
+    return await fetch(`${baseURL}/api/magic-link`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    })
+}
+
 

@@ -11,7 +11,7 @@ const UnauthorizedPage: FC = () => {
             <div className="alert">
                 <h1>You do not have permission to this page, contact your manager to see permissions </h1>
                 <h1>or</h1>
-                <button onClick={() => navigate(-1)}>Go Back</button>
+                <button onClick={() => navigate('/')}>Go Back</button>
             </div>
         </div>
     );

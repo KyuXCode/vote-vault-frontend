@@ -33,7 +33,6 @@ const Login: FC = () => {
         <div className='login-container'>
             <form onSubmit={handleLogin} className="login-form">
                 <h2>Welcome to VSTOP</h2>
-                <p></p>
 
                 <div className="input-group">
                     <label>Email</label>
@@ -61,10 +60,10 @@ const Login: FC = () => {
                     {loading ? "Logging in..." : "Sign In"}
                 </button>
 
+                <button className="magic-login-button" onClick={() => navigate('/send-magic-link')}>
+                    Sign in with link
+                </button>
 
-                {/*<button className="magic-link-button" disabled={loading}>*/}
-                {/*    Sign in with link*/}
-                {/*</button>*/}
 
                 {/*<button className="register" disabled={loading}>*/}
                 {/*    Register*/}
