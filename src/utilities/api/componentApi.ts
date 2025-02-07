@@ -40,6 +40,22 @@ export async function createComponent(formData: Component) {
         console.error('Error submitting component data:', error);
     }
 }
+export async function batchCreateComponents(formData: any) {
+    try {
+        const response = await fetch(`${baseURL}/components/batch`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        if (response.ok) {
+            console.log('Component data submitted successfully:', await response.json());
+        } else {
+            console.error('Failed to submit component data:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error submitting component data:', error);
+    }
+}
 
 export async function updateComponent(componentId: string, formData: Component) {
     try {
