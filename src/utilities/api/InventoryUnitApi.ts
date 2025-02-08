@@ -40,6 +40,22 @@ export async function createInventoryUnit(formData: InventoryUnit) {
         console.error('Error submitting inventory unit data:', error);
     }
 }
+export async function batchCreateInventoryUnits (formData: any) {
+    try {
+        const response = await fetch(`${baseURL}/inventory-units/batch`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        if (response.ok) {
+            console.log('InventoryUnit data submitted successfully:', await response.json());
+        } else {
+            console.error('Failed to submit inventory unit data:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error submitting inventory unit data:', error);
+    }
+}
 
 export async function updateInventoryUnit(inventoryUnitId: string, formData: InventoryUnit) {
     try {
