@@ -1,6 +1,6 @@
 import {Component} from "../../Types/Component.ts";
 
-const baseURL = "http://127.0.0.1:8000/api";
+const baseURL = "http://localhost:8000/api";
 
 export async function getComponents() {
     try {
@@ -27,6 +27,22 @@ export async function getComponentById(id: string) {
 export async function createComponent(formData: Component) {
     try {
         const response = await fetch(`${baseURL}/components`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        if (response.ok) {
+            console.log('Component data submitted successfully:', await response.json());
+        } else {
+            console.error('Failed to submit component data:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error submitting component data:', error);
+    }
+}
+export async function batchCreateComponents(formData: any) {
+    try {
+        const response = await fetch(`${baseURL}/components/batch`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)

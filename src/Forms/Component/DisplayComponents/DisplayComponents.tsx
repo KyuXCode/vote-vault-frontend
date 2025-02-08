@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react';
 import './displayComponentsStyles.scss'
+import '../../formDisplayStyle.scss';
 import {useNavigate} from "react-router-dom";
 import {Component} from "../../../Types/Component.ts";
 import {getComponents} from "../../../utilities/api/componentApi.ts";
@@ -32,7 +33,7 @@ const DisplayComponents: FC = () => {
 
 
     return (
-        <div className="display-components-container">
+        <div className="display-components-container form-display">
             <button className=" " onClick={() => navigate('/')}>
                 HOME
             </button>

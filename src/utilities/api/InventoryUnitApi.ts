@@ -1,6 +1,6 @@
 import {InventoryUnit} from "../../Types/InventoryUnit.ts";
 
-const baseURL = "http://127.0.0.1:8000/api";
+const baseURL = "http://localhost:8000/api";
 
 export async function getInventoryUnits() {
     try {
@@ -27,6 +27,22 @@ export async function getInventoryUnitById(id: string) {
 export async function createInventoryUnit(formData: InventoryUnit) {
     try {
         const response = await fetch(`${baseURL}/inventory_units`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        if (response.ok) {
+            console.log('InventoryUnit data submitted successfully:', await response.json());
+        } else {
+            console.error('Failed to submit inventory unit data:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error submitting inventory unit data:', error);
+    }
+}
+export async function batchCreateInventoryUnits (formData: any) {
+    try {
+        const response = await fetch(`${baseURL}/inventory-units/batch`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)

@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './displayCountiesStyles.scss';
+import '../../formDisplayStyle.scss';
 import {County} from "../../../Types/County.ts";
 import {deleteCounty, getCounties} from "../../../utilities/api/countyApi.ts";
 
@@ -31,7 +32,7 @@ const DisplayCounties: FC = () => {
 
 
     return (
-        <div className='display-counties-container'>
+        <div className='display-counties-container form-display'>
             <button className=" " onClick={() => navigate('/')}>
                 HOME
             </button>

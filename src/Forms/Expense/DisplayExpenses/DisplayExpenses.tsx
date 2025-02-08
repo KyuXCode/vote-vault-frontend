@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react';
 import './displayExpensesStyles.scss'
+import '../../formDisplayStyle.scss'
 import {useNavigate} from "react-router-dom";
 import {deleteExpense, getExpenses} from "../../../utilities/api/expenseApi.ts";
 import {Expense} from "../../../Types/Expense.ts";
@@ -30,7 +31,7 @@ const DisplayExpenses: FC = () => {
     };
 
     return (
-        <div className='display-expenses-container'>
+        <div className='display-expenses-container form-display'>
             <button className=" " onClick={() => navigate('/')}>
                 HOME
             </button>
