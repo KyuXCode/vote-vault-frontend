@@ -1,15 +1,30 @@
 import { describe, it, vi, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom/vitest"
+import "@testing-library/jest-dom/vitest";
 import Navbar from "../../src/Navbar/Navbar";
-import {BrowserRouter, useNavigate} from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom";
+import { AuthProvider } from "../../src/Auth/AuthContext.tsx";
 
-// Partial mock for react-router-dom
-vi.mock("react-router-dom", async () => {
-    const originalModule = await vi.importActual<typeof import("react-router-dom")>(
-        "react-router-dom"
+const mockLogout = vi.fn();
+
+vi.mock("../../src/Auth/AuthContext.tsx", async () => {
+    const actual = await vi.importActual<typeof import("../../src/Auth/AuthContext.tsx")>(
+        "../../src/Auth/AuthContext.tsx"
     );
+
+    return {
+        ...actual,
+        useAuth: vi.fn(() => ({
+            user: { name: "John Doe", role: "User" },
+            isAuthenticated: true,
+            logout: mockLogout,
+        })),
+    };
+});
+
+vi.mock("react-router-dom", async () => {
+    const originalModule = await vi.importActual<typeof import("react-router-dom")>("react-router-dom");
     return {
         ...originalModule,
         useNavigate: vi.fn(),
@@ -17,19 +32,21 @@ vi.mock("react-router-dom", async () => {
 });
 
 describe("Navbar Component", () => {
-    const mockNavigate = vi.fn();
+    let mockNavigate: ReturnType<typeof vi.fn>;
 
     beforeEach(() => {
-        // Mock useNavigate behavior before each test
-        (useNavigate as jest.Mock).mockReturnValue(mockNavigate);
+        mockNavigate = vi.fn();
+        vi.mocked(useNavigate).mockReturnValue(mockNavigate);
         vi.clearAllMocks();
     });
 
     it("renders all navigation items", () => {
         render(
-            <BrowserRouter>
-                <Navbar />
-            </BrowserRouter>
+            <AuthProvider>
+                <BrowserRouter>
+                    <Navbar />
+                </BrowserRouter>
+            </AuthProvider>
         );
 
         const navItems = [
@@ -44,6 +61,7 @@ describe("Navbar Component", () => {
             "Dispositions",
             "Storage Locations",
             "Audits",
+            "Logout",
         ];
 
         navItems.forEach((item) => {
@@ -53,14 +71,15 @@ describe("Navbar Component", () => {
 
     it("navigates to the correct route when items are clicked", async () => {
         render(
-            <BrowserRouter>
-                <Navbar />
-            </BrowserRouter>
+            <AuthProvider>
+                <BrowserRouter>
+                    <Navbar />
+                </BrowserRouter>
+            </AuthProvider>
         );
 
         const user = userEvent.setup();
 
-        // Test navigation by clicking on items
         await user.click(screen.getByText("Home"));
         expect(mockNavigate).toHaveBeenCalledWith("/");
 
@@ -69,5 +88,27 @@ describe("Navbar Component", () => {
 
         await user.click(screen.getByText("Certifications"));
         expect(mockNavigate).toHaveBeenCalledWith("/certifications");
+    });
+
+    it("calls logout function when Logout is clicked", async () => {
+        render(
+            <AuthProvider>
+                <BrowserRouter>
+                    <Navbar />
+                </BrowserRouter>
+            </AuthProvider>
+        );
+
+        const user = userEvent.setup();
+
+        screen.debug();
+
+        const logoutButton = screen.getByRole("button", { name: /logout/i });
+
+        expect(logoutButton).toBeInTheDocument();
+
+        await user.click(logoutButton);
+
+        expect(mockLogout).toHaveBeenCalledTimes(1);
     });
 });

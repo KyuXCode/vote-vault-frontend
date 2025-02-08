@@ -1,7 +1,7 @@
 import {Audit} from "../../Types/Audit.ts";
 
 
-const baseURL = "http://127.0.0.1:8000/api";
+const baseURL = "http://localhost:8000/api";
 
 export async function getPublicTest() {
     try {
