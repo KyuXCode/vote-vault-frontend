@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { Button, TextField, Select, MenuItem, InputLabel, FormControl, Container, Box, SelectChangeEvent } from '@mui/material';
 import './inventoryFormStyles.scss';
 import '../../formStyle.scss';
 import { Condition, InventoryUnit, Usage } from "../../../Types/InventoryUnit.ts";
@@ -29,18 +30,18 @@ const InventoryForm: FC = () => {
     const { id } = useParams<{ id?: string }>();
     const navigate = useNavigate();
     const isEditMode = Boolean(id);
-
-    const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setBatchFormData((prevData) => {
-            const newData = [...prevData];
-            newData[index] = {
-                ...newData[index],
-                [name]: value,
-            };
-            return newData;
-        });
-    };
+    
+    const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> | SelectChangeEvent<string> | SelectChangeEvent<number>) => {
+            const { name, value } = e.target;
+            setBatchFormData((prevData) => {
+                const newData = [...prevData];
+                newData[index] = {
+                    ...newData[index],
+                    [name]: value,
+                };
+                return newData;
+            });
+        };
 
     const handleSubmit = async (index:number) => {
         if (isEditMode && id) {
@@ -88,111 +89,111 @@ const InventoryForm: FC = () => {
     const formAdd = (index: number) => {
         const formData = batchFormData[index];
         return (
-            <div style = {{margin:1}} key={index}>
-                <button onClick={() => handleDelete(index)}>Delete</button>
+            <Box key={index} sx={{ margin: 1 }}>
+                <Button variant="contained" style={{color: "white", backgroundColor:"#bb1111"}} onClick={() => handleDelete(index)}>Delete</Button>
                 <form onSubmit={() => handleSubmit(index)} className='form-container'>
-                    <label>
-                        Serial Number:
-                        <input
-                            type="text"
-                            name="serial_number"
-                            value={formData.serial_number}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        />
-                    </label>
-
-                    <label>
-                        Acquisition Date:
-                        <input
-                            type="date"
-                            name="acquisition_date"
-                            value={formData.acquisition_date}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        />
-                    </label>
-
-                    <label>
-                        Condition:
-                        <select
+                    <TextField
+                        label="Serial Number"
+                        type="text"
+                        name="serial_number"
+                        value={formData.serial_number}
+                        onChange={(e) => handleChange(index, e)}
+                        required
+                        fullWidth
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Acquisition Date"
+                        type="date"
+                        name="acquisition_date"
+                        value={formData.acquisition_date}
+                        onChange={(e) => handleChange(index, e)}
+                        required
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{ shrink: true }}
+                    />
+                    <FormControl fullWidth margin="normal">
+                        <InputLabel sx={{ fontSize: '16', transform: 'translateY(-23px)' }}>Condition</InputLabel>
+                        <Select
                             name="condition"
                             value={formData.condition}
+                            sx={{ backgroundColor: "white" }}
                             onChange={(e) => handleChange(index, e)}
                             required
                         >
                             {Object.values(Condition).map((condition) => (
-                                <option key={condition} value={condition}>
+                                <MenuItem key={condition} value={condition}>
                                     {condition}
-                                </option>
+                                </MenuItem>
                             ))}
-                        </select>
-                    </label>
-
-                    <label>
-                        Usage:
-                        <select
+                        </Select>
+                    </FormControl>
+                    <FormControl fullWidth margin="normal">
+                        <InputLabel sx={{ fontSize: '16', transform: 'translateY(-23px)' }}>Usage</InputLabel>
+                        <Select
                             name="usage"
                             value={formData.usage}
+                            sx={{ backgroundColor: "white" }}
                             onChange={(e) => handleChange(index, e)}
                             required
                         >
                             {Object.values(Usage).map((usage) => (
-                                <option key={usage} value={usage}>
+                                <MenuItem key={usage} value={usage}>
                                     {usage}
-                                </option>
+                                </MenuItem>
                             ))}
-                        </select>
-                    </label>
-
-                    <label>
-                        Expense ID:
-                        <input
-                            type="number"
-                            name="expense_id"
-                            value={formData.expense_id}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        />
-                    </label>
-
-                    <label>
-                        Component:
-                        <select
+                        </Select>
+                    </FormControl>
+                    <TextField
+                        label="Expense ID"
+                        type="number"
+                        name="expense_id"
+                        value={formData.expense_id}
+                        onChange={(e) => handleChange(index, e)}
+                        required
+                        fullWidth
+                        margin="normal"
+                    />
+                    <FormControl fullWidth margin="normal">
+                        <InputLabel sx={{ fontSize: '16', transform: 'translateY(-23px)' }}>Component</InputLabel>
+                        <Select
                             name="component_id"
                             value={formData.component_id}
+                            sx={{ backgroundColor: "white" }}
                             onChange={(e) => handleChange(index, e)}
                             required
                         >
-                            <option value="">Select a Component</option>
+                            <MenuItem value="">Select a Component</MenuItem>
                             {components.map((component) => (
-                                <option key={component.id} value={component.id}>
+                                <MenuItem key={component.id} value={component.id}>
                                     {component.name}
-                                </option>
+                                </MenuItem>
                             ))}
-                        </select>
-                    </label>
-
-                    <label>
-                        Expense:
-                        <select
+                        </Select>
+                    </FormControl>
+                    <FormControl fullWidth margin="normal">
+                        <InputLabel sx={{ fontSize: '16', transform: 'translateY(-23px)' }}>Expense</InputLabel>
+                        <Select
                             name="expense_id"
                             value={formData.expense_id}
+                            sx={{ backgroundColor: "white" }}
                             onChange={(e) => handleChange(index, e)}
                             required
                         >
-                            <option value="">Select a Expense</option>
+                            <MenuItem value="">Select an Expense</MenuItem>
                             {expenses.map((expense) => (
-                                <option key={expense.id} value={expense.id}>
+                                <MenuItem key={expense.id} value={expense.id}>
                                     {expense.name}
-                                </option>
+                                </MenuItem>
                             ))}
-                        </select>
-                    </label>
-
-                    <button type="submit">{isEditMode ? 'Update' : 'Create'} Inventory</button>
+                        </Select>
+                    </FormControl>
+                    <Button type="submit" variant="contained" style = {{color: "white", backgroundColor:"#221a1a"}}>
+                        {isEditMode ? 'Update' : 'Create'} Inventory
+                    </Button>
                 </form>
-            </div>
+            </Box>
         );
     };
 
@@ -221,25 +222,16 @@ const InventoryForm: FC = () => {
     }, [isEditMode, id]);
 
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start'
-        }}>
-            <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                width: '100%'
-            }}>
-                <button style = {{margin:1}} onClick={handleGoBack} className="go-back-button">Go back</button>
-                <button style = {{margin:1}} onClick={handleFormAdd}>Add Form</button>
-                <button style = {{margin:1}} onClick={handleBatchUpload}>Batch Create Form</button>
-            </div>
+        <Container>
+            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: 2 }}>
+                <Button variant="contained" style = {{color: "white", backgroundColor:"#221a1a"}} onClick={handleGoBack} className="go-back-button">Go back</Button>
+                <Button variant="contained" style = {{color: "white", backgroundColor:"#221a1a"}} onClick={handleFormAdd}>Add Form</Button> 
+                <Button variant="contained" style = {{color: "white", backgroundColor:"#221a1a"}} onClick={handleBatchUpload}>Batch Create Form</Button>
+            </Box>
             {batchFormData.map((_, index) => (
-                <div key={index}>{formAdd(index)}</div>
+                <Box key={index}>{formAdd(index)}</Box>
             ))}
-        </div>
+        </Container>
     );
 };
 
