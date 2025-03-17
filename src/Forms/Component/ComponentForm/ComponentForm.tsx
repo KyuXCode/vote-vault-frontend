@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { Button, TextField, Select, MenuItem, InputLabel, FormControl, Container, Box, Grid, SelectChangeEvent, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ComponentType, Component } from "../../../Types/Component.ts";
 import { createComponent, updateComponent, getComponentById, batchCreateComponents } from "../../../utilities/api/componentApi.ts";
@@ -20,7 +21,7 @@ const ComponentForm: FC = () => {
     const navigate = useNavigate();
     const isEditMode = Boolean(id);
 
-    const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> | SelectChangeEvent<number> | SelectChangeEvent<ComponentType>) => {
         const { name, value } = e.target;
         setBatchFormData((prevData) => {
             const newData = [...prevData];
@@ -76,67 +77,79 @@ const ComponentForm: FC = () => {
     const formAdd = (index: number) => {
         const formData = batchFormData[index];
         return (
-            <div style={{ margin: 1 }} key={index}>
-                <button onClick={() => handleDelete(index)}>Delete</button>
+            <Box key={index} sx={{ margin: 2, marginTop:-20 }}>
+                <Button variant="contained" style={{ color: "white", backgroundColor: "#bb1111", marginLeft: 400, width:200, height: 80, marginTop: 120 }} onClick={() => handleDelete(index)}>Delete New Form</Button>
                 <form onSubmit={(e) => handleSubmit(index, e)} className='form-container'>
-                    <label>
-                        Name:
-                        <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        />
-                    </label>
-
-                    <label>
-                        Description:
-                        <input
-                            type="text"
-                            name="description"
-                            value={formData.description}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        />
-                    </label>
-
-                    <label>
-                        Type:
-                        <select
-                            name="type"
-                            value={formData.type}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        >
-                            {Object.values(ComponentType).map((compType) => (
-                                <option key={compType} value={compType}>
-                                    {compType}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-
-                    <label>
-                        Certification:
-                        <select
-                            name="certification_id"
-                            value={formData.certification_id}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        >
-                            <option value="">Select a Certification</option>
-                            {certifications.map((certification) => (
-                                <option key={certification.id} value={certification.id}>
-                                    {certification.model_number}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-
-                    <button type="submit">{isEditMode ? 'Update' : 'Create'} Component</button>
+                    <Grid container spacing={10}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="Name"
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={(e) => handleChange(index, e)}
+                                required
+                                fullWidth
+                                margin="normal"
+                                sx={{ backgroundColor: "lightgray" }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="Description"
+                                type="text"
+                                name="description"
+                                value={formData.description}
+                                onChange={(e) => handleChange(index, e)}
+                                required
+                                fullWidth
+                                margin="normal"
+                                sx={{ backgroundColor: "lightgray" }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray" }}>
+                                <InputLabel sx={{ fontSize: '1.25rem', transform: 'translateY(-25px)', color: "black" }}>Type</InputLabel>
+                                <Select
+                                    name="type"
+                                    value={formData.type}
+                                    onChange={(e) => handleChange(index, e)}
+                                    required
+                                >
+                                    {Object.values(ComponentType).map((compType) => (
+                                        <MenuItem key={compType} value={compType}>
+                                            {compType}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray" }}>
+                                <InputLabel sx={{ fontSize: '1.25rem', transform: 'translateY(-25px)', color: "black" }}>Certification</InputLabel>
+                                <Select
+                                    name="certification_id"
+                                    value={formData.certification_id}
+                                    onChange={(e) => handleChange(index, e)}
+                                    required
+                                >
+                                    <MenuItem value="">Select a Certification</MenuItem>
+                                    {certifications.map((certification) => (
+                                        <MenuItem key={certification.id} value={certification.id}>
+                                            {certification.model_number}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
+                    <Button type="submit" variant="contained" style={{ color: "black", backgroundColor: "#FFD700", fontSize: '1rem', padding: '10px 20px', width: '200px', height: '80px', marginRight: 260, marginTop: 200 }}>
+                            Submit
+                        </Button>
+                    </Box>
                 </form>
-            </div>
+            </Box>
         );
     };
 
@@ -158,25 +171,17 @@ const ComponentForm: FC = () => {
     }, [isEditMode, id]);
 
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start'
-        }}>
-            <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                width: '100%'
-            }}>
-                <button onClick={handleGoBack} className="go-back-button">Go back</button>
-                <button onClick={handleFormAdd}>Add Form</button>
-                <button onClick={handleBatchUpload}>Batch Create Form</button>
-            </div>
-            {batchFormData.map((_, index) => (
-                <div key={index}>{formAdd(index)}</div>
-            ))}
-        </div>
+        <Container>
+            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: 10, marginTop: 10 }}>
+            <Button variant="contained" style={{ color: "white", backgroundColor: "darkblue", fontSize: 15, marginBottom: 20, marginLeft: 10 }} onClick={handleGoBack} className="go-back-button">Go Back</Button>
+            <Button variant="contained" style={{ color: "white", backgroundColor: "#221a1a", marginLeft: 100,marginRight: 277, width: 200, height: 80 }} onClick={handleBatchUpload}>Add New Form</Button>
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70vh' }}>
+                {batchFormData.map((_, index) => (
+                    <Box key={index}>{formAdd(index)}</Box>
+                ))}
+            </Box>
+        </Container>
     );
 };
 
