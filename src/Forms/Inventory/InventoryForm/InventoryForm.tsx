@@ -1,5 +1,18 @@
 import { FC, useEffect, useState } from 'react';
-import { Button, TextField, Select, MenuItem, InputLabel, FormControl, Container, Box, Grid, SelectChangeEvent } from '@mui/material';
+import { 
+  Button, 
+  TextField, 
+  Select, 
+  MenuItem, 
+  InputLabel, 
+  FormControl, 
+  Container, 
+  Box, 
+  Grid, 
+  SelectChangeEvent,
+  Typography,
+  Paper
+} from '@mui/material';
 import './inventoryFormStyles.scss';
 import '../../formStyle.scss';
 import { Condition, InventoryUnit, Usage } from "../../../Types/InventoryUnit.ts";
@@ -14,6 +27,7 @@ import { Expense } from "../../../Types/Expense.ts";
 import { Component } from "../../../Types/Component.ts";
 import { getComponents } from "../../../utilities/api/componentApi.ts";
 import { getExpenses } from "../../../utilities/api/expenseApi.ts";
+import { Plus, Trash2, ArrowLeft, Save } from 'lucide-react';
 
 const InventoryForm: FC = () => {
     const [components, setComponents] = useState<Component[]>([]);
@@ -91,10 +105,26 @@ const InventoryForm: FC = () => {
     const formAdd = (index: number) => {
         const formData = batchFormData[index];
         return (
-            <Box key={index} sx={{ margin: 1, marginTop: -20 }}>
-                <Button variant="contained" style={{ color: "white", backgroundColor: "#bb1111", marginLeft: 1045, width:200, height: 80, marginTop: 200 }} onClick={() => handleDelete(index)}>Delete New Form</Button>
-                <form onSubmit={(e) => handleSubmit(index, e)} className='form-container'>
-                    <Grid container spacing={6}>
+            <Paper elevation={15} className="form-container" sx={{ mb: 4, mt: 2, height: 275 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2,width: '50%' }}>
+                    <Button 
+                        variant="contained" 
+                        startIcon={<Trash2 />}
+                        onClick={() => handleDelete(index)}
+                        className="delete-button"
+                        sx={{ height:215,
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                                transform: 'translateY(-2px)'
+                            }
+                        }}
+                    >
+                        Delete Form
+                    </Button>
+                </Box>
+                
+                <form onSubmit={(e) => handleSubmit(index, e)}>
+                    <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 label="Serial Number"
@@ -104,8 +134,7 @@ const InventoryForm: FC = () => {
                                 onChange={(e) => handleChange(index, e)}
                                 required
                                 fullWidth
-                                margin="normal"
-                                sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft: 30 }}
+                                className="form-field"
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -117,14 +146,13 @@ const InventoryForm: FC = () => {
                                 onChange={(e) => handleChange(index, e)}
                                 required
                                 fullWidth
-                                margin="normal"
                                 InputLabelProps={{ shrink: true }}
-                                sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft: -30 }}
+                                className="form-field"
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray",boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft: 30 }}>
-                                <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black" }}>Condition</InputLabel>
+                            <FormControl fullWidth className="form-field">
+                                <InputLabel>Condition</InputLabel>
                                 <Select
                                     name="condition"
                                     value={formData.condition}
@@ -140,8 +168,8 @@ const InventoryForm: FC = () => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft: -30 }}>
-                                <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black" }}>Usage</InputLabel>
+                            <FormControl fullWidth className="form-field">
+                                <InputLabel>Usage</InputLabel>
                                 <Select
                                     name="usage"
                                     value={formData.usage}
@@ -157,21 +185,8 @@ const InventoryForm: FC = () => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                label="Expense ID"
-                                type="number"
-                                name="expense_id"
-                                value={formData.expense_id}
-                                onChange={(e) => handleChange(index, e)}
-                                required
-                                fullWidth
-                                margin="normal"
-                                sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft: 30 }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft:-30 }}>
-                                <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black" }}>Component</InputLabel>
+                            <FormControl fullWidth className="form-field">
+                                <InputLabel>Component</InputLabel>
                                 <Select
                                     name="component_id"
                                     value={formData.component_id}
@@ -188,8 +203,8 @@ const InventoryForm: FC = () => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", marginLeft:70, marginRight:60, width: 250 }}>
-                                <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black"}}>Expense</InputLabel>
+                            <FormControl fullWidth className="form-field">
+                                <InputLabel>Expense</InputLabel>
                                 <Select
                                     name="expense_id"
                                     value={formData.expense_id}
@@ -206,13 +221,25 @@ const InventoryForm: FC = () => {
                             </FormControl>
                         </Grid>
                     </Grid>
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                        <Button type="submit" variant="contained" style={{ color: "#080c5c", backgroundColor: "#FFD700", fontSize: '1.25rem', padding: '10px 20px', width: '200px', height: '80px', marginRight: 200, marginTop: 400, marginLeft: -275 }}>
-                            Submit
+                    
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+                        <Button 
+                            type="submit" 
+                            variant="contained" 
+                            startIcon={<Save />}
+                            className="submit-button"
+                            sx={{ 
+                                transition: 'all 0.3s ease',
+                                '&:hover': {
+                                    transform: 'translateY(-2px)'
+                                }
+                            }}
+                        >
+                            {isEditMode ? 'Update' : 'Submit'}
                         </Button>
                     </Box>
                 </form>
-            </Box>
+            </Paper>
         );
     };
 
@@ -241,17 +268,52 @@ const InventoryForm: FC = () => {
     }, [isEditMode, id]);
 
     return (
-        <Container>
-            {/* Dark blue banner */}
-            <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '125px', backgroundColor: '#080c5c', zIndex: 1 }} />
-            <Box sx={{ position: 'absolute', top: 0, left: 0, width: '200px', height: '100%', backgroundColor: 'darkgrey', zIndex: 0 }} />
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Box className="banner" />
+            <Box className="sidebar" />
             
-            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: 10, marginTop: 10 }}>
-                <Button variant="contained" style={{ color: "white", backgroundColor: "darkblue", fontSize: 15,marginTop:100, marginBottom: -100, marginLeft: 290 }} onClick={handleGoBack} className="go-back-button">Go Back</Button>
+            <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                mb: 4,
+                position: 'relative',
+                zIndex: 2
+            }}>
+                <Button 
+                    variant="contained" 
+                    startIcon={<ArrowLeft />}
+                    onClick={handleGoBack}
+                    className="back-button"
+                >
+                    Go Back
+                </Button>
+                <Button
+                    onClick={handleFormAdd}
+                    startIcon={<Plus />}
+                    variant="contained"
+                    className="back-button"
+                >
+                    Add New Unit
+                </Button>
             </Box>
+
             {batchFormData.map((_, index) => (
                 <Box key={index}>{formAdd(index)}</Box>
             ))}
+
+            {batchFormData.length > 1 && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+                    <Button
+                        onClick={handleBatchUpload}
+                        variant="contained"
+                        startIcon={<Save />}
+                        className="submit-button"
+                    >
+                        Submit All Units
+                    </Button>
+                </Box>
+            )}
         </Container>
     );
 };
