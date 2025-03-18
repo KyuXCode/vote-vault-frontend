@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { Button, TextField, Select, MenuItem, InputLabel, FormControl, Container, Box, Grid, SelectChangeEvent, Typography } from '@mui/material';
+import { Button, TextField, Select, MenuItem, InputLabel, FormControl, Container, Box, Grid, SelectChangeEvent } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ComponentType, Component } from "../../../Types/Component.ts";
 import { createComponent, updateComponent, getComponentById, batchCreateComponents } from "../../../utilities/api/componentApi.ts";
@@ -77,10 +77,10 @@ const ComponentForm: FC = () => {
     const formAdd = (index: number) => {
         const formData = batchFormData[index];
         return (
-            <Box key={index} sx={{ margin: 2, marginTop:-20 }}>
-                <Button variant="contained" style={{ color: "white", backgroundColor: "#bb1111", marginLeft: 400, width:200, height: 80, marginTop: 120 }} onClick={() => handleDelete(index)}>Delete New Form</Button>
+            <Box key={index} sx={{ margin: 1, marginTop: -20 }}>
+                <Button variant="contained" style={{ color: "white", backgroundColor: "#bb1111", marginLeft: 1045, width: 200, height: 80, marginTop: 200 }} onClick={() => handleDelete(index)}>Delete New Form</Button>
                 <form onSubmit={(e) => handleSubmit(index, e)} className='form-container'>
-                    <Grid container spacing={10}>
+                    <Grid container spacing={6}>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 label="Name"
@@ -91,7 +91,7 @@ const ComponentForm: FC = () => {
                                 required
                                 fullWidth
                                 margin="normal"
-                                sx={{ backgroundColor: "lightgray" }}
+                                sx={{ backgroundColor: "lightgray", boxShadow: "0 4px 2px -2px gray", width: 300, marginLeft: 30 }}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -104,12 +104,12 @@ const ComponentForm: FC = () => {
                                 required
                                 fullWidth
                                 margin="normal"
-                                sx={{ backgroundColor: "lightgray" }}
+                                sx={{ backgroundColor: "lightgray", boxShadow: "0 4px 2px -2px gray", width: 300, marginLeft: -30 }}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray" }}>
-                                <InputLabel sx={{ fontSize: '1.25rem', transform: 'translateY(-25px)', color: "black" }}>Type</InputLabel>
+                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow: "0 4px 2px -2px gray", width: 300, marginLeft: 30 }}>
+                                <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black" }}>Type</InputLabel>
                                 <Select
                                     name="type"
                                     value={formData.type}
@@ -125,8 +125,8 @@ const ComponentForm: FC = () => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray" }}>
-                                <InputLabel sx={{ fontSize: '1.25rem', transform: 'translateY(-25px)', color: "black" }}>Certification</InputLabel>
+                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow: "0 4px 2px -2px gray", width: 300, marginLeft: -30 }}>
+                                <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black" }}>Certification</InputLabel>
                                 <Select
                                     name="certification_id"
                                     value={formData.certification_id}
@@ -144,7 +144,7 @@ const ComponentForm: FC = () => {
                         </Grid>
                     </Grid>
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                    <Button type="submit" variant="contained" style={{ color: "black", backgroundColor: "#FFD700", fontSize: '1rem', padding: '10px 20px', width: '200px', height: '80px', marginRight: 260, marginTop: 200 }}>
+                        <Button type="submit" variant="contained" style={{ color: "black", backgroundColor: "#FFD700", fontSize: '1rem', padding: '10px 20px', width: '200px', height: '80px', marginRight: 260, marginTop: 200 }}>
                             Submit
                         </Button>
                     </Box>
@@ -172,15 +172,16 @@ const ComponentForm: FC = () => {
 
     return (
         <Container>
+            {/* Dark blue banner */}
+            <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '125px', backgroundColor: '#080c5c', zIndex: 1 }} />
+            <Box sx={{ position: 'absolute', top: 0, left: 0, width: '200px', height: '100%', backgroundColor: 'darkgrey', zIndex: 0 }} />
+            
             <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: 10, marginTop: 10 }}>
-            <Button variant="contained" style={{ color: "white", backgroundColor: "darkblue", fontSize: 15, marginBottom: 20, marginLeft: 10 }} onClick={handleGoBack} className="go-back-button">Go Back</Button>
-            <Button variant="contained" style={{ color: "white", backgroundColor: "#221a1a", marginLeft: 100,marginRight: 277, width: 200, height: 80 }} onClick={handleBatchUpload}>Add New Form</Button>
+                <Button variant="contained" style={{ color: "white", backgroundColor: "darkblue", fontSize: 15, marginTop: 100, marginBottom: -100, marginLeft: 290 }} onClick={handleGoBack} className="go-back-button">Go Back</Button>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70vh' }}>
-                {batchFormData.map((_, index) => (
-                    <Box key={index}>{formAdd(index)}</Box>
-                ))}
-            </Box>
+            {batchFormData.map((_, index) => (
+                <Box key={index}>{formAdd(index)}</Box>
+            ))}
         </Container>
     );
 };

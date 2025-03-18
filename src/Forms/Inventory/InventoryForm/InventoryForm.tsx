@@ -92,7 +92,7 @@ const InventoryForm: FC = () => {
         const formData = batchFormData[index];
         return (
             <Box key={index} sx={{ margin: 1, marginTop: -20 }}>
-                <Button variant="contained" style={{ color: "white", backgroundColor: "#bb1111", marginLeft: 400, width:200, height: 80, marginTop: 120 }} onClick={() => handleDelete(index)}>Delete New Form</Button>
+                <Button variant="contained" style={{ color: "white", backgroundColor: "#bb1111", marginLeft: 1045, width:200, height: 80, marginTop: 200 }} onClick={() => handleDelete(index)}>Delete New Form</Button>
                 <form onSubmit={(e) => handleSubmit(index, e)} className='form-container'>
                     <Grid container spacing={6}>
                         <Grid item xs={12} sm={6}>
@@ -207,7 +207,7 @@ const InventoryForm: FC = () => {
                         </Grid>
                     </Grid>
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                        <Button type="submit" variant="contained" style={{ color: "black", backgroundColor: "#FFD700", fontSize: '1rem', padding: '10px 20px', width: '200px', height: '80px', marginRight: 260, marginTop: 400 }}>
+                        <Button type="submit" variant="contained" style={{ color: "#080c5c", backgroundColor: "#FFD700", fontSize: '1.25rem', padding: '10px 20px', width: '200px', height: '80px', marginRight: 200, marginTop: 400, marginLeft: -275 }}>
                             Submit
                         </Button>
                     </Box>
@@ -247,7 +247,7 @@ const InventoryForm: FC = () => {
             <Box sx={{ position: 'absolute', top: 0, left: 0, width: '200px', height: '100%', backgroundColor: 'darkgrey', zIndex: 0 }} />
             
             <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: 10, marginTop: 10 }}>
-                <Button variant="contained" style={{ color: "white", backgroundColor: "darkblue", fontSize: 15,marginTop:100, marginBottom: -100, marginLeft: 400 }} onClick={handleGoBack} className="go-back-button">Go Back</Button>
+                <Button variant="contained" style={{ color: "white", backgroundColor: "darkblue", fontSize: 15,marginTop:100, marginBottom: -100, marginLeft: 290 }} onClick={handleGoBack} className="go-back-button">Go Back</Button>
             </Box>
             {batchFormData.map((_, index) => (
                 <Box key={index}>{formAdd(index)}</Box>
