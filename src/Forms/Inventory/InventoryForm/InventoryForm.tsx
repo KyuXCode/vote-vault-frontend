@@ -105,7 +105,7 @@ const InventoryForm: FC = () => {
                                 required
                                 fullWidth
                                 margin="normal"
-                                sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray" }}
+                                sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft: 30 }}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -119,11 +119,11 @@ const InventoryForm: FC = () => {
                                 fullWidth
                                 margin="normal"
                                 InputLabelProps={{ shrink: true }}
-                                sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray" }}
+                                sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft: -30 }}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray",boxShadow:  "0 4px 2px -2px gray" }}>
+                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray",boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft: 30 }}>
                                 <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black" }}>Condition</InputLabel>
                                 <Select
                                     name="condition"
@@ -140,8 +140,8 @@ const InventoryForm: FC = () => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray" }}>
-                                <InputLabel sx={{ fontSize: '1.25rem', transform: 'translateY(-25px)', color: "black" }}>Usage</InputLabel>
+                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft: -30 }}>
+                                <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black" }}>Usage</InputLabel>
                                 <Select
                                     name="usage"
                                     value={formData.usage}
@@ -166,12 +166,12 @@ const InventoryForm: FC = () => {
                                 required
                                 fullWidth
                                 margin="normal"
-                                sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray" }}
+                                sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft: 30 }}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray" }}>
-                                <InputLabel sx={{ fontSize: '1.25rem', transform: 'translateY(-25px)', color: "black" }}>Component</InputLabel>
+                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", width: 300, marginLeft:-30 }}>
+                                <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black" }}>Component</InputLabel>
                                 <Select
                                     name="component_id"
                                     value={formData.component_id}
@@ -188,12 +188,11 @@ const InventoryForm: FC = () => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray" }}>
-                                <InputLabel sx={{ fontSize: '1.25rem', transform: 'translateY(-25px)', color: "black" }}>Expense</InputLabel>
+                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow:  "0 4px 2px -2px gray", marginLeft:70, marginRight:60, width: 250 }}>
+                                <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black"}}>Expense</InputLabel>
                                 <Select
                                     name="expense_id"
                                     value={formData.expense_id}
-                                    
                                     onChange={(e) => handleChange(index, e)}
                                     required
                                 >
@@ -243,9 +242,12 @@ const InventoryForm: FC = () => {
 
     return (
         <Container>
+            {/* Dark blue banner */}
+            <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '125px', backgroundColor: '#080c5c', zIndex: 1 }} />
+            <Box sx={{ position: 'absolute', top: 0, left: 0, width: '200px', height: '100%', backgroundColor: 'darkgrey', zIndex: 0 }} />
+            
             <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: 10, marginTop: 10 }}>
                 <Button variant="contained" style={{ color: "white", backgroundColor: "darkblue", fontSize: 15,marginTop:100, marginBottom: -100, marginLeft: 400 }} onClick={handleGoBack} className="go-back-button">Go Back</Button>
-                <Button variant="contained" style={{ color: "white", backgroundColor: "#221a1a", marginLeft: 100,marginRight: 277, width: 200, height: 80 }} onClick={handleBatchUpload}>Add New Form</Button>
             </Box>
             {batchFormData.map((_, index) => (
                 <Box key={index}>{formAdd(index)}</Box>
