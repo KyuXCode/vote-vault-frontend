@@ -1,12 +1,30 @@
 import { FC, useEffect, useState } from 'react';
-import { Button, TextField, Select, MenuItem, InputLabel, FormControl, Container, Box, Grid, SelectChangeEvent } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
-import { ComponentType, Component } from "../../../Types/Component.ts";
-import { createComponent, updateComponent, getComponentById, batchCreateComponents } from "../../../utilities/api/componentApi.ts";
+import { 
+  Button, 
+  TextField, 
+  Select, 
+  MenuItem, 
+  InputLabel, 
+  FormControl, 
+  Container, 
+  Box, 
+  Grid, 
+  SelectChangeEvent,
+  Paper
+} from '@mui/material';
 import './componentFormStyles.scss';
 import '../../formStyle.scss';
-import { getCertifications } from "../../../utilities/api/certificationApi.ts";
+import { ComponentType, Component } from "../../../Types/Component.ts";
 import { Certification } from "../../../Types/Certification.ts";
+import { useNavigate, useParams } from "react-router-dom";
+import { 
+  createComponent, 
+  updateComponent, 
+  getComponentById, 
+  batchCreateComponents 
+} from "../../../utilities/api/componentApi.ts";
+import { getCertifications } from "../../../utilities/api/certificationApi.ts";
+import { Plus, Trash2, ArrowLeft, Save } from 'lucide-react';
 
 const ComponentForm: FC = () => {
     const [certifications, setCertifications] = useState<Certification[]>([]);
@@ -21,7 +39,7 @@ const ComponentForm: FC = () => {
     const navigate = useNavigate();
     const isEditMode = Boolean(id);
 
-    const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> | SelectChangeEvent<number> | SelectChangeEvent<ComponentType>) => {
+    const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> | SelectChangeEvent<number> | SelectChangeEvent<ComponentType>) => {
         const { name, value } = e.target;
         setBatchFormData((prevData) => {
             const newData = [...prevData];
@@ -77,12 +95,29 @@ const ComponentForm: FC = () => {
     const formAdd = (index: number) => {
         const formData = batchFormData[index];
         return (
-            <Box key={index} sx={{ margin: 1, marginTop: -20 }}>
-                <Button variant="contained" style={{ color: "white", backgroundColor: "#bb1111", marginLeft: 1045, width: 200, height: 80, marginTop: 200 }} onClick={() => handleDelete(index)}>Delete New Form</Button>
-                <form onSubmit={(e) => handleSubmit(index, e)} className='form-container'>
-                    <Grid container spacing={6}>
+            <Paper elevation={15} className="form-container" sx={{ mb: 4, mt: 2, height: 275 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2, width: '50%' }}>
+                    <Button 
+                        variant="contained" 
+                        startIcon={<Trash2 />}
+                        onClick={() => handleDelete(index)}
+                        className="delete-button"
+                        sx={{ 
+                            height: 215,
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                                transform: 'translateY(-2px)'
+                            }
+                        }}
+                    >
+                        Delete Form
+                    </Button>
+                </Box>
+                
+                <form onSubmit={(e) => handleSubmit(index, e)}>
+                    <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
-                            <TextField
+                            <TextField sx={{ boxShadow: "0 4px 2px -2px gray" }}
                                 label="Name"
                                 type="text"
                                 name="name"
@@ -90,12 +125,11 @@ const ComponentForm: FC = () => {
                                 onChange={(e) => handleChange(index, e)}
                                 required
                                 fullWidth
-                                margin="normal"
-                                sx={{ backgroundColor: "lightgray", boxShadow: "0 4px 2px -2px gray", width: 300, marginLeft: 30 }}
+                                className="form-field"
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField
+                            <TextField sx={{ boxShadow: "0 4px 2px -2px gray" }}
                                 label="Description"
                                 type="text"
                                 name="description"
@@ -103,14 +137,13 @@ const ComponentForm: FC = () => {
                                 onChange={(e) => handleChange(index, e)}
                                 required
                                 fullWidth
-                                margin="normal"
-                                sx={{ backgroundColor: "lightgray", boxShadow: "0 4px 2px -2px gray", width: 300, marginLeft: -30 }}
+                                className="form-field"
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow: "0 4px 2px -2px gray", width: 300, marginLeft: 30 }}>
-                                <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black" }}>Type</InputLabel>
-                                <Select
+                            <FormControl fullWidth className="form-field">
+                                <InputLabel sx={{ marginTop: -1 }}>Type</InputLabel>
+                                <Select sx={{ boxShadow: "0 4px 2px -2px gray" }}
                                     name="type"
                                     value={formData.type}
                                     onChange={(e) => handleChange(index, e)}
@@ -125,9 +158,9 @@ const ComponentForm: FC = () => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth margin="normal" sx={{ backgroundColor: "lightgray", boxShadow: "0 4px 2px -2px gray", width: 300, marginLeft: -30 }}>
-                                <InputLabel sx={{ fontSize: '1rem', transform: 'translateY(-25px)', color: "black" }}>Certification</InputLabel>
-                                <Select
+                            <FormControl fullWidth className="form-field">
+                                <InputLabel sx={{ marginTop: -1 }}>Certification</InputLabel>
+                                <Select sx={{ boxShadow: "0 4px 2px -2px gray" }}
                                     name="certification_id"
                                     value={formData.certification_id}
                                     onChange={(e) => handleChange(index, e)}
@@ -143,13 +176,25 @@ const ComponentForm: FC = () => {
                             </FormControl>
                         </Grid>
                     </Grid>
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                        <Button type="submit" variant="contained" style={{ color: "black", backgroundColor: "#FFD700", fontSize: '1rem', padding: '10px 20px', width: '200px', height: '80px', marginRight: 260, marginTop: 200 }}>
-                            Submit
+                    
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+                        <Button 
+                            type="submit" 
+                            variant="contained" 
+                            startIcon={<Save />}
+                            className="submit-button"
+                            sx={{ 
+                                transition: 'all 0.3s ease',
+                                '&:hover': {
+                                    transform: 'translateY(-2px)'
+                                }
+                            }}
+                        >
+                            {isEditMode ? 'Update' : 'Submit'}
                         </Button>
                     </Box>
                 </form>
-            </Box>
+            </Paper>
         );
     };
 
@@ -163,6 +208,7 @@ const ComponentForm: FC = () => {
             };
             fetchComponent();
         }
+
         getCertifications().then((result) => {
             if (result.success && result.data) {
                 setCertifications(result.data);
@@ -171,17 +217,52 @@ const ComponentForm: FC = () => {
     }, [isEditMode, id]);
 
     return (
-        <Container>
-            {/* Dark blue banner */}
-            <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '125px', backgroundColor: '#080c5c', zIndex: 1 }} />
-            <Box sx={{ position: 'absolute', top: 0, left: 0, width: '200px', height: '100%', backgroundColor: 'darkgrey', zIndex: 0 }} />
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Box className="banner" />
+            <Box className="sidebar" />
             
-            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginBottom: 10, marginTop: 10 }}>
-                <Button variant="contained" style={{ color: "white", backgroundColor: "darkblue", fontSize: 15, marginTop: 100, marginBottom: -100, marginLeft: 290 }} onClick={handleGoBack} className="go-back-button">Go Back</Button>
+            <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                mb: 4,
+                position: 'relative',
+                zIndex: 2
+            }}>
+                <Button 
+                    variant="contained" 
+                    startIcon={<ArrowLeft />}
+                    onClick={handleGoBack}
+                    className="back-button"
+                >
+                    Go Back
+                </Button>
+                <Button
+                    onClick={handleFormAdd}
+                    startIcon={<Plus />}
+                    variant="contained"
+                    className="back-button"
+                >
+                    Add New Component
+                </Button>
             </Box>
+
             {batchFormData.map((_, index) => (
                 <Box key={index}>{formAdd(index)}</Box>
             ))}
+
+            {batchFormData.length > 1 && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+                    <Button
+                        onClick={handleBatchUpload}
+                        variant="contained"
+                        startIcon={<Save />}
+                        className="submit-button"
+                    >
+                        Submit All Components
+                    </Button>
+                </Box>
+            )}
         </Container>
     );
 };

@@ -126,7 +126,7 @@ const InventoryForm: FC = () => {
                 <form onSubmit={(e) => handleSubmit(index, e)}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
-                            <TextField
+                            <TextField sx={{ boxShadow: "0 4px 2px -2px gray" }}
                                 label="Serial Number"
                                 type="text"
                                 name="serial_number"
@@ -138,7 +138,7 @@ const InventoryForm: FC = () => {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField
+                            <TextField sx={{ boxShadow: "0 4px 2px -2px gray" }}
                                 label="Acquisition Date"
                                 type="date"
                                 name="acquisition_date"
@@ -152,8 +152,8 @@ const InventoryForm: FC = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth className="form-field">
-                                <InputLabel>Condition</InputLabel>
-                                <Select
+                                <InputLabel sx={{ marginTop: -1}}>Condition</InputLabel>
+                                <Select sx={{ boxShadow: "0 4px 2px -2px gray" }}
                                     name="condition"
                                     value={formData.condition}
                                     onChange={(e) => handleChange(index, e)}
@@ -169,8 +169,8 @@ const InventoryForm: FC = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth className="form-field">
-                                <InputLabel>Usage</InputLabel>
-                                <Select
+                                <InputLabel sx={{marginTop: -1}}>Usage</InputLabel>
+                                <Select sx={{ boxShadow: "0 4px 2px -2px gray" }}
                                     name="usage"
                                     value={formData.usage}
                                     onChange={(e) => handleChange(index, e)}
@@ -186,8 +186,8 @@ const InventoryForm: FC = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth className="form-field">
-                                <InputLabel>Component</InputLabel>
-                                <Select
+                                <InputLabel sx={{marginTop: -1}}>Component</InputLabel>
+                                <Select sx={{ boxShadow: "0 4px 2px -2px gray" }}
                                     name="component_id"
                                     value={formData.component_id}
                                     onChange={(e) => handleChange(index, e)}
@@ -204,8 +204,8 @@ const InventoryForm: FC = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth className="form-field">
-                                <InputLabel>Expense</InputLabel>
-                                <Select
+                                <InputLabel sx={{marginTop: -1}}>Expense</InputLabel>
+                                <Select sx={{ boxShadow: "0 4px 2px -2px gray" }}
                                     name="expense_id"
                                     value={formData.expense_id}
                                     onChange={(e) => handleChange(index, e)}
