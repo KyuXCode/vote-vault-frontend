@@ -8,7 +8,7 @@ const Navbar: FC = () => {
     const navigate = useNavigate();
     const { logout } = useAuth()
 
-    const [startTour, setStartTour] = useState(true)
+    const [startTour, setStartTour] = useState(false)
 
     const handleStartTour = () => {
         setStartTour(true)
