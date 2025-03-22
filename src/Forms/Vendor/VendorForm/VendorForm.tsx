@@ -70,7 +70,7 @@ const VendorForm: FC = () => {
         navigate(-1);
     };
 
-    const handleDelete = async (index: number) => {
+    const handleDelete = async () => {
         if (isEditMode && id) {
             const confirmDelete = window.confirm("Are you sure you want to delete this vendor?");
             if (confirmDelete) {
@@ -226,7 +226,7 @@ const VendorForm: FC = () => {
                     <Button 
                         variant="contained" 
                         startIcon={<Trash2 />}
-                        onClick={() => handleDelete(0)}
+                        onClick={handleDelete}
                         className="delete-button"
                         sx={{ 
                             marginLeft: '160%',marginTop: -65,
