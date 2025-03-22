@@ -11,9 +11,13 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^5.17.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.7.9",
+    "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-cookies": "^0.1.1",
     "react-dom": "^18.3.1",

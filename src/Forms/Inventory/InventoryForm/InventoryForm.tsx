@@ -1,4 +1,17 @@
 import { FC, useEffect, useState } from 'react';
+import { 
+  Button, 
+  TextField, 
+  Select, 
+  MenuItem, 
+  InputLabel, 
+  FormControl, 
+  Container, 
+  Box, 
+  Grid, 
+  SelectChangeEvent,
+  Paper
+} from '@mui/material';
 import './inventoryFormStyles.scss';
 import '../../formStyle.scss';
 import { Condition, InventoryUnit, Usage } from "../../../Types/InventoryUnit.ts";
@@ -13,6 +26,7 @@ import { Expense } from "../../../Types/Expense.ts";
 import { Component } from "../../../Types/Component.ts";
 import { getComponents } from "../../../utilities/api/componentApi.ts";
 import { getExpenses } from "../../../utilities/api/expenseApi.ts";
+import { Plus, Trash2, ArrowLeft, Save } from 'lucide-react';
 
 const InventoryForm: FC = () => {
     const [components, setComponents] = useState<Component[]>([]);
@@ -29,8 +43,8 @@ const InventoryForm: FC = () => {
     const { id } = useParams<{ id?: string }>();
     const navigate = useNavigate();
     const isEditMode = Boolean(id);
-
-    const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    
+    const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> | SelectChangeEvent<number> | SelectChangeEvent<Usage> | SelectChangeEvent<Condition>) => {
         const { name, value } = e.target;
         setBatchFormData((prevData) => {
             const newData = [...prevData];
@@ -42,11 +56,13 @@ const InventoryForm: FC = () => {
         });
     };
 
-    const handleSubmit = async (index:number) => {
+    const handleSubmit = async (index: number, e: React.FormEvent) => {
+        e.preventDefault();
+        const formData = batchFormData[index];
         if (isEditMode && id) {
-            await updateInventoryUnit(id, batchFormData[0]);
+            await updateInventoryUnit(id, formData);
         } else {
-            await createInventoryUnit(batchFormData[index]);
+            await createInventoryUnit(formData);
         }
         navigate('/inventory_units');
     };
@@ -88,111 +104,141 @@ const InventoryForm: FC = () => {
     const formAdd = (index: number) => {
         const formData = batchFormData[index];
         return (
-            <div style = {{margin:1}} key={index}>
-                <button onClick={() => handleDelete(index)}>Delete</button>
-                <form onSubmit={() => handleSubmit(index)} className='form-container'>
-                    <label>
-                        Serial Number:
-                        <input
-                            type="text"
-                            name="serial_number"
-                            value={formData.serial_number}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        />
-                    </label>
-
-                    <label>
-                        Acquisition Date:
-                        <input
-                            type="date"
-                            name="acquisition_date"
-                            value={formData.acquisition_date}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        />
-                    </label>
-
-                    <label>
-                        Condition:
-                        <select
-                            name="condition"
-                            value={formData.condition}
-                            onChange={(e) => handleChange(index, e)}
-                            required
+            <Paper elevation={15} className="form-container" sx={{ mb: 4, mt: 2, height: 275 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2,width: '50%' }}>
+                    <Button 
+                        variant="contained" 
+                        startIcon={<Trash2 />}
+                        onClick={() => handleDelete(index)}
+                        className="delete-button"
+                        sx={{ height:215,
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                                transform: 'translateY(-2px)'
+                            }
+                        }}
+                    >
+                        Delete Form
+                    </Button>
+                </Box>
+                
+                <form onSubmit={(e) => handleSubmit(index, e)}>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField sx={{ boxShadow: "0 4px 2px -2px gray" }}
+                                label="Serial Number"
+                                type="text"
+                                name="serial_number"
+                                value={formData.serial_number}
+                                onChange={(e) => handleChange(index, e)}
+                                required
+                                fullWidth
+                                className="form-field"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField sx={{ boxShadow: "0 4px 2px -2px gray" }}
+                                label="Acquisition Date"
+                                type="date"
+                                name="acquisition_date"
+                                value={formData.acquisition_date}
+                                onChange={(e) => handleChange(index, e)}
+                                required
+                                fullWidth
+                                InputLabelProps={{ shrink: true }}
+                                className="form-field"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth className="form-field">
+                                <InputLabel sx={{ marginTop: -1}}>Condition</InputLabel>
+                                <Select sx={{ boxShadow: "0 4px 2px -2px gray" }}
+                                    name="condition"
+                                    value={formData.condition}
+                                    onChange={(e) => handleChange(index, e)}
+                                    required
+                                >
+                                    {Object.values(Condition).map((condition) => (
+                                        <MenuItem key={condition} value={condition}>
+                                            {condition}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth className="form-field">
+                                <InputLabel sx={{marginTop: -1}}>Usage</InputLabel>
+                                <Select sx={{ boxShadow: "0 4px 2px -2px gray" }}
+                                    name="usage"
+                                    value={formData.usage}
+                                    onChange={(e) => handleChange(index, e)}
+                                    required
+                                >
+                                    {Object.values(Usage).map((usage) => (
+                                        <MenuItem key={usage} value={usage}>
+                                            {usage}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth className="form-field">
+                                <InputLabel sx={{marginTop: -1}}>Component</InputLabel>
+                                <Select sx={{ boxShadow: "0 4px 2px -2px gray" }}
+                                    name="component_id"
+                                    value={formData.component_id}
+                                    onChange={(e) => handleChange(index, e)}
+                                    required
+                                >
+                                    <MenuItem value="">Select a Component</MenuItem>
+                                    {components.map((component) => (
+                                        <MenuItem key={component.id} value={component.id}>
+                                            {component.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth className="form-field">
+                                <InputLabel sx={{marginTop: -1}}>Expense</InputLabel>
+                                <Select sx={{ boxShadow: "0 4px 2px -2px gray" }}
+                                    name="expense_id"
+                                    value={formData.expense_id}
+                                    onChange={(e) => handleChange(index, e)}
+                                    required
+                                >
+                                    <MenuItem value="">Select an Expense</MenuItem>
+                                    {expenses.map((expense) => (
+                                        <MenuItem key={expense.id} value={expense.id}>
+                                            {expense.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                    
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+                        <Button 
+                            type="submit" 
+                            variant="contained" 
+                            startIcon={<Save />}
+                            className="submit-button"
+                            sx={{ 
+                                transition: 'all 0.3s ease',
+                                '&:hover': {
+                                    transform: 'translateY(-2px)'
+                                }
+                            }}
                         >
-                            {Object.values(Condition).map((condition) => (
-                                <option key={condition} value={condition}>
-                                    {condition}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-
-                    <label>
-                        Usage:
-                        <select
-                            name="usage"
-                            value={formData.usage}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        >
-                            {Object.values(Usage).map((usage) => (
-                                <option key={usage} value={usage}>
-                                    {usage}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-
-                    <label>
-                        Expense ID:
-                        <input
-                            type="number"
-                            name="expense_id"
-                            value={formData.expense_id}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        />
-                    </label>
-
-                    <label>
-                        Component:
-                        <select
-                            name="component_id"
-                            value={formData.component_id}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        >
-                            <option value="">Select a Component</option>
-                            {components.map((component) => (
-                                <option key={component.id} value={component.id}>
-                                    {component.name}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-
-                    <label>
-                        Expense:
-                        <select
-                            name="expense_id"
-                            value={formData.expense_id}
-                            onChange={(e) => handleChange(index, e)}
-                            required
-                        >
-                            <option value="">Select a Expense</option>
-                            {expenses.map((expense) => (
-                                <option key={expense.id} value={expense.id}>
-                                    {expense.name}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-
-                    <button type="submit">{isEditMode ? 'Update' : 'Create'} Inventory</button>
+                            {isEditMode ? 'Update' : 'Submit'}
+                        </Button>
+                    </Box>
                 </form>
-            </div>
+            </Paper>
         );
     };
 
@@ -221,25 +267,53 @@ const InventoryForm: FC = () => {
     }, [isEditMode, id]);
 
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start'
-        }}>
-            <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                width: '100%'
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Box className="banner" />
+            <Box className="sidebar" />
+            
+            <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                mb: 4,
+                position: 'relative',
+                zIndex: 2
             }}>
-                <button style = {{margin:1}} onClick={handleGoBack} className="go-back-button">Go back</button>
-                <button style = {{margin:1}} onClick={handleFormAdd}>Add Form</button>
-                <button style = {{margin:1}} onClick={handleBatchUpload}>Batch Create Form</button>
-            </div>
+                <Button 
+                    variant="contained" 
+                    startIcon={<ArrowLeft />}
+                    onClick={handleGoBack}
+                    className="back-button"
+                >
+                    Go Back
+                </Button>
+                <Button
+                    onClick={handleFormAdd}
+                    startIcon={<Plus />}
+                    variant="contained"
+                    className="back-button"
+                >
+                    Add New Unit
+                </Button>
+            </Box>
+
             {batchFormData.map((_, index) => (
-                <div key={index}>{formAdd(index)}</div>
+                <Box key={index}>{formAdd(index)}</Box>
             ))}
-        </div>
+
+            {batchFormData.length > 1 && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+                    <Button
+                        onClick={handleBatchUpload}
+                        variant="contained"
+                        startIcon={<Save />}
+                        className="submit-button"
+                    >
+                        Submit All Units
+                    </Button>
+                </Box>
+            )}
+        </Container>
     );
 };
 
