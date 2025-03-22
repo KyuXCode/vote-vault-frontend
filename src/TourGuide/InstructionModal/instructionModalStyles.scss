@@ -1,0 +1,27 @@
+.reusable-component {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 0.5rem;
+  text-align: left;
+
+  .title {
+    margin-right: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .description {
+    margin-right: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .step-info {
+    position: absolute;
+    bottom: 30px;
+    left: 8%;
+    font-size: 0.875rem;
+    color: #9ca3af;
+  }
+}
