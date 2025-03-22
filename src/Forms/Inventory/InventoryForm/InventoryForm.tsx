@@ -10,7 +10,6 @@ import {
   Box, 
   Grid, 
   SelectChangeEvent,
-  Typography,
   Paper
 } from '@mui/material';
 import './inventoryFormStyles.scss';
