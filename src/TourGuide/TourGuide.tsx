@@ -230,6 +230,8 @@ const TourGuide: FC<TourGuideProps> = ({start, setStartTour, onTourEnd}: TourGui
             onTourEnd();
         } else if (([EVENTS.STEP_BEFORE] as string[]).includes(type)) {
             setProgress(index + 1);
+        } else if (data.action == 'close') {
+            setStartTour(false)
         }
     };
 
@@ -241,11 +243,10 @@ const TourGuide: FC<TourGuideProps> = ({start, setStartTour, onTourEnd}: TourGui
             steps={steps}
             styles={{
                 options: {
-                    primaryColor: '#000F5D',
+                    primaryColor: '#D59F0F',
                 },
             }}
             scrollToFirstStep
-            debug
         />
     );
 };
