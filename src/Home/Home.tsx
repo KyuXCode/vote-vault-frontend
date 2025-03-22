@@ -4,6 +4,7 @@ import Dashboard from "../Dashboard/Dashboard.tsx";
 import Navbar from "../Navbar/Navbar.tsx";
 
 const Home: FC = () => {
+
     return (
         <div className='home-container'>
             <Navbar/>
